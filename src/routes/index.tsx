@@ -2,14 +2,14 @@
 import { Suspense, lazy } from 'react'
 import { createBrowserRouter } from 'react-router-dom'
 
-import GlobalLoader from '~/pages/GlobalLoader'
+import GlobalLoader from '~/pages/global-loader'
 
-const AboutPage = lazy(() => import('~/pages/About'))
-const HomePage = lazy(() => import('~/pages/Home'))
-const NotFound = lazy(() => import('~/pages/NotFound'))
-const Protected = lazy(() => import('~/pages/Protected'))
-const Login = lazy(() => import('~/pages/Login'))
-const Admin = lazy(() => import('~/pages/Admin'))
+const AboutPage = lazy(() => import('~/pages/about'))
+const HomePage = lazy(() => import('~/pages/home'))
+const NotFound = lazy(() => import('~/pages/not-found'))
+const Protected = lazy(() => import('~/pages/protected'))
+const Login = lazy(() => import('~/pages/login'))
+const Admin = lazy(() => import('~/pages/admin'))
 
 const router = createBrowserRouter([
 	{
@@ -48,11 +48,7 @@ const router = createBrowserRouter([
 	},
 	{
 		path: '*',
-		element: (
-			<Suspense fallback={<GlobalLoader />}>
-				<NotFound />
-			</Suspense>
-		),
+		element: <NotFound />,
 	},
 ])
 

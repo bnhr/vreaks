@@ -1,5 +1,5 @@
 module.exports = {
-	plugins: [require('prettier-plugin-tailwindcss')],
+	plugins: ['prettier-plugin-tailwindcss'],
 	"arrowParens": "always",
 	"bracketSameLine": false,
 	"bracketSpacing": true,

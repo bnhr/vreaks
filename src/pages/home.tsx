@@ -1,4 +1,4 @@
-import Button from '~/components/Button/Button'
+import Button from '~/components/button/button'
 import useCounterState from '~/store/counter'
 
 function HomePage() {
