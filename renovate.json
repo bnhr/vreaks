@@ -1,5 +1,3 @@
 {
-  "extends": ["config:base"],
-  "timezone": "Asia/Jakarta",
-  "schedule": ["every weekend"]
+  "extends": ["config:base"]
 }

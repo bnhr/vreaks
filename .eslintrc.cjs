@@ -74,6 +74,7 @@ module.exports = {
 		],
 		'import/default': 'off',
 		'import/prefer-default-imports': 'off',
+		"import/no-extraneous-dependencies": ["error", { "devDependencies": ["**/*.test.ts", "**/*.spec.ts", "**/*.test.tsx", "**/*.spec.tsx"] }],
 		'react-refresh/only-export-components': 'warn',
 	},
 }
