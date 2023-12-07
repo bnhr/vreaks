@@ -1,4 +1,4 @@
-import Button from '~/components/button/button'
+import Button from '~/components/base/button/button'
 import useLoginState from '~/store/login'
 
 function AdminPage() {

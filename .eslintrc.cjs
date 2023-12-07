@@ -5,76 +5,44 @@ module.exports = {
 	},
 	extends: [
 		'eslint:recommended',
-		'plugin:import/recommended',
-		'plugin:import/typescript',
-		'plugin:react/recommended',
-		'plugin:react-hooks/recommended',
-		'plugin:react/jsx-runtime',
-		'plugin:jsx-a11y/recommended',
-		'plugin:@typescript-eslint/recommended',
 		'plugin:@typescript-eslint/eslint-recommended',
+		'plugin:@typescript-eslint/recommended',
+		'plugin:@typescript-eslint/stylistic',
+		'plugin:react/recommended',
+		'plugin:react/jsx-runtime',
+		'plugin:react-hooks/recommended',
+		'plugin:jsx-a11y/recommended',
 	],
-	overrides: [],
+	overrides: [
+		{
+			env: {
+				node: true,
+			},
+			files: ['.eslintrc.{js,cjs}'],
+			parserOptions: {
+				sourceType: 'script',
+			},
+		},
+	],
 	parser: '@typescript-eslint/parser',
 	parserOptions: {
 		ecmaVersion: 'latest',
 		sourceType: 'module',
 	},
-	root: true,
 	settings: {
 		react: {
 			version: 'detect',
 		},
-		'import/parsers': {
-			'@typescript-eslint/parser': ['.ts', '.mts', '.cts', '.tsx', '.d.ts'],
-		},
-		'import/resolver': {
-			typescript: {
-				alwaysTryTypes: true,
-			},
-		},
 	},
-	plugins: ['react', 'react-refresh', '@typescript-eslint'],
+	plugins: ['@typescript-eslint', 'react', 'react-refresh'],
 	rules: {
 		indent: ['error', 'tab'],
 		'linebreak-style': ['error', 'unix'],
 		quotes: ['error', 'single'],
 		semi: ['error', 'never'],
-		'import/order': [
+		'react-refresh/only-export-components': [
 			'warn',
-			{
-				groups: [
-					['builtin', 'external'],
-					'internal',
-					['parent', 'sibling', 'index'],
-				],
-				pathGroups: [
-					{
-						pattern: 'react',
-						group: 'external',
-						position: 'before',
-					},
-				],
-				'newlines-between': 'always',
-				alphabetize: {
-					order: 'asc',
-					caseInsensitive: true,
-				},
-			},
+			{ allowConstantExport: true },
 		],
-		'import/no-unresolved': 'off',
-		'import/extensions': ['error', { ts: ['.ts', '.tsx'] }],
-		'import/no-unresolved': 'error',
-		'import/prefer-default-imports': 'error',
-		'import/no-extraneous-dependencies': [
-			'error',
-			{
-				devDependencies: ['**/*.test.ts', '**/*.test.tsx'],
-			},
-		],
-		'import/default': 'off',
-		'import/prefer-default-imports': 'off',
-		"import/no-extraneous-dependencies": ["error", { "devDependencies": ["**/*.test.ts", "**/*.spec.ts", "**/*.test.tsx", "**/*.spec.tsx"] }],
-		'react-refresh/only-export-components': 'warn',
 	},
 }
