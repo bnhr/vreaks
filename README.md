@@ -18,7 +18,7 @@ pnpm run dev
 - **Tailwind CSS**: Conflict-free classNames for effortless styling.
 - **Prettier with Tailwind Plugin**: Maintain code consistency and formatting.
 - **ESLint**: Ensure code quality with a powerful linter.
-- **Zustand for State Management**: Simplified state management solution.
+- **Zustand**: Simplified client state management solution.
 
 ### Todo
 
