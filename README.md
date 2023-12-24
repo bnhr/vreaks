@@ -11,7 +11,7 @@ pnpm install
 pnpm run dev
 ```
 
-### Features
+### Essential Technologies
 
 - **React 18**: Stay updated with the latest React version for enhanced performance.
 - **TypeScript**: Strongly typed language for better code reliability and scalability.
