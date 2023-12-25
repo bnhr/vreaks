@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 
-import { DMYFormat, StringDateFormat, truncateText } from '.'
+import { DMYFormat, stringDateFormat, truncateText } from '.'
 
 describe('truncate long text', () => {
 	it('should works properly', () => {
@@ -18,9 +18,9 @@ describe('Formatting Date', () => {
 	})
 
 	it('should returns date as string correctly', () => {
-		const today = StringDateFormat(1703395595232, 'long', 'en')
+		const today = stringDateFormat(1703395595232, 'long', 'en')
 		expect(today).toBe('December 24, 2023')
-		const tomorrow = StringDateFormat('2023-12-25T05:37:27.522Z', 'short', 'id')
+		const tomorrow = stringDateFormat('2023-12-25T05:37:27.522Z', 'short', 'id')
 		expect(tomorrow).toBe('25 Des 2023')
 	})
 })

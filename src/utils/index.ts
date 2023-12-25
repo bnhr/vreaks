@@ -37,7 +37,7 @@ export function DMYFormat(date: string | number, type: DMYProps) {
 	}
 }
 
-export function StringDateFormat(
+export function stringDateFormat(
 	date: string | number,
 	type: 'short' | 'long',
 	lang: 'id' | 'en',
