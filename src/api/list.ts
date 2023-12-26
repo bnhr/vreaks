@@ -1,12 +1,12 @@
-const BASEURL = import.meta.env.VITE_BE_URL
+const BASEURL = `${import.meta.env.VITE_BE_URL}/api`
 
 export const authApi = {
-	register: `${BASEURL}/api/auth/register`,
-	login: `${BASEURL}/api/auth/login`,
-	logout: `${BASEURL}/api/auth/logout`,
+	register: `${BASEURL}/auth/register`,
+	login: `${BASEURL}/auth/login`,
+	logout: `${BASEURL}/auth/logout`,
 }
 
 export const userApi = {
-	getAllUsers: `${BASEURL}/api/users`,
-	getSingleUser: (uuid: string) => `${BASEURL}/api/users/${uuid}`,
+	getAllUsers: `${BASEURL}/users`,
+	getSingleUser: (uuid: string) => `${BASEURL}/users/${uuid}`,
 }

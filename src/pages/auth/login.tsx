@@ -8,6 +8,10 @@ function LoginPage() {
 	const { hasLoggedIn, login } = useLoginState()
 	const navigate = useNavigate()
 
+	const handleClick = async () => {
+		login()
+	}
+
 	useEffect(() => {
 		if (hasLoggedIn) {
 			navigate('/admin')
@@ -17,7 +21,7 @@ function LoginPage() {
 	return (
 		<div>
 			<div>login page</div>
-			<Button onClick={login}>Login</Button>
+			<Button onClick={handleClick}>Login</Button>
 		</div>
 	)
 }

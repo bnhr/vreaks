@@ -3,9 +3,9 @@ import { ButtonHTMLAttributes, forwardRef } from 'react'
 type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement>
 
 const Button = forwardRef<HTMLButtonElement, ButtonProps>((props, _ref) => {
-	const { children, type, onClick, ...rest } = props
+	const { children, type = 'button', onClick, ...rest } = props
 	return (
-		<button ref={_ref} type={type ?? 'button'} onClick={onClick} {...rest}>
+		<button ref={_ref} type={type} onClick={onClick} {...rest}>
 			{children}
 		</button>
 	)
