@@ -5,3 +5,4 @@ export interface ChildrenProps {
 }
 
 export type DMYProps = 'DDMMYYYY' | 'MMDDYYYY' | 'YYYYMMDD'
+export type DateInputProps = string | number

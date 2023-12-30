@@ -2,7 +2,7 @@
 import clsx from 'clsx'
 import { ClassValue } from 'clsx'
 import { twMerge } from 'tailwind-merge'
-import { DMYProps } from '~/types'
+import { DMYProps, DateInputProps } from '~/types'
 
 export function truncateText(text: string, length: number) {
 	let truncated = text.slice(0, length + 1)
@@ -16,11 +16,11 @@ export function cn(...inputs: ClassValue[]) {
 	return twMerge(clsx(inputs))
 }
 
-export function stringToDate(str: string | number) {
+export function stringToDate(str: DateInputProps) {
 	return new Date(str)
 }
 
-export function DMYFormat(date: string | number, type: DMYProps) {
+export function DMYFormat(date: DateInputProps, type: DMYProps) {
 	const formattedDate = stringToDate(date)
 	const dates = formattedDate.getDate()
 	const months = formattedDate.getMonth() + 1
@@ -38,7 +38,7 @@ export function DMYFormat(date: string | number, type: DMYProps) {
 }
 
 export function stringDateFormat(
-	date: string | number,
+	date: DateInputProps,
 	type: 'short' | 'long',
 	lang: 'id' | 'en',
 ) {
@@ -50,4 +50,11 @@ export function stringDateFormat(
 			year: 'numeric',
 		},
 	)
+}
+
+export function cookieExpiration(input: number) {
+	const now = new Date()
+	const expTime = now.getTime() + input * 60 * 1000
+	// const expDate = new Date(expTime)
+	return expTime
 }

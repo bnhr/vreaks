@@ -1,5 +1,7 @@
 import { Suspense, lazy } from 'react'
 import { RouterProvider, createBrowserRouter } from 'react-router-dom'
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 
 import GlobalLoader from '~/layouts/global-loader'
 
@@ -9,6 +11,14 @@ const NotFound = lazy(() => import('~/pages/errors/not-found'))
 const Protected = lazy(() => import('~/pages/auth/protected'))
 const Login = lazy(() => import('~/pages/auth/login'))
 const Admin = lazy(() => import('~/pages/dashboard/admin'))
+
+const queryClient = new QueryClient({
+	defaultOptions: {
+		queries: {
+			refetchOnWindowFocus: false,
+		},
+	},
+})
 
 const router = createBrowserRouter([
 	{
@@ -54,7 +64,10 @@ const router = createBrowserRouter([
 function App() {
 	return (
 		<>
-			<RouterProvider router={router} />
+			<QueryClientProvider client={queryClient}>
+				<ReactQueryDevtools initialIsOpen={false} />
+				<RouterProvider router={router} />
+			</QueryClientProvider>
 		</>
 	)
 }

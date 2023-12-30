@@ -19,10 +19,10 @@ pnpm run dev
 - **Prettier with Tailwind Plugin**: Maintain code consistency and formatting.
 - **ESLint**: Ensure code quality with a powerful linter.
 - **Zustand**: Simplified client state management solution.
+- **Tanstack Query**: Implement efficient server state handling to optimize data fetching and management.
 
 ### Todo
 
-- [ ] **Server State Management (react-query/SWR)**: Implement efficient server state handling to optimize data fetching and management.
 - [ ] **API Management**: Create a structured approach for managing APIs, including a fetcher function and API list for streamlined integration.
 - [ ] **PWA Configuration**: Set up a minimalistic Progressive Web App (PWA) configuration for enhanced user experience.
 - [ ] **Headless Components as a Design System**: Develop pre-configured, customizable components for easy integration and consistent UI design.
