@@ -1,6 +1,7 @@
 import { useMutation } from '@tanstack/react-query'
 import Cookies from 'js-cookie'
 import { Fetcher } from '~/api/fetcher'
+import { authApi } from '../list'
 
 // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
 type LoginPayload = {
@@ -20,7 +21,7 @@ interface Data {
 function LoginMutation() {
 	const mutation = useMutation({
 		mutationFn: async (payload: LoginPayload) => {
-			return await Fetcher<Data>('/auth/login', 'POST', false, payload)
+			return await Fetcher<Data>(authApi.login, 'POST', false, payload)
 		},
 		onSuccess: (data) => {
 			Cookies.set('auth', data.data.accessToken, {

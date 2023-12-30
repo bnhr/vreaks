@@ -1,4 +1,3 @@
-import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 import Button from '~/components/base/button/button'
@@ -6,25 +5,26 @@ import useLoginState from '~/store/login'
 import LoginMutation from '~/api/mutations/login-mutation'
 
 function LoginPage() {
-	const { login, hasLoggedIn } = useLoginState()
-	console.log('🚀 ~ file: login.tsx:10 ~ LoginPage ~ hasLoggedIn:', hasLoggedIn)
 	const navigate = useNavigate()
-	const mutation = LoginMutation()
+	const { login } = useLoginState()
+	const { isError, error, mutate } = LoginMutation()
 
 	function handleClick() {
-		console.log('click')
-		login()
-		mutation.mutate({ username: 'pino1', password: 'pino1' })
+		mutate(
+			{ username: 'pino1', password: 'pino1' },
+			{
+				onSuccess: (data) => {
+					if (data) {
+						login()
+						navigate('/admin')
+					}
+				},
+			},
+		)
 	}
 
-	useEffect(() => {
-		if (hasLoggedIn) {
-			navigate('/admin')
-		}
-	}, [hasLoggedIn, navigate])
-
-	if (mutation.error) {
-		return <div>{mutation.error.message}</div>
+	if (isError) {
+		return <div>{error.message}</div>
 	}
 
 	return (
