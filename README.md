@@ -23,6 +23,5 @@ pnpm run dev
 
 ### Todo
 
-- [ ] **API Management**: Create a structured approach for managing APIs, including a fetcher function and API list for streamlined integration.
 - [ ] **PWA Configuration**: Set up a minimalistic Progressive Web App (PWA) configuration for enhanced user experience.
-- [ ] **Headless Components as a Design System**: Develop pre-configured, customizable components for easy integration and consistent UI design.
+- [ ] **Headless Components as a Design System**: Develop pre-configured, customizable components for easy integration and consistent UI design using Radix UI or React Aria Components.
