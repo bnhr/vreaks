@@ -9,11 +9,10 @@ interface LoginState {
 
 export const useLoginState = create<LoginState>()(
 	persist(
-		// eslint-disable-next-line @typescript-eslint/no-unused-vars
-		(set, get) => ({
+		(set) => ({
 			hasLoggedIn: false,
-			login: () => set(() => ({ hasLoggedIn: true })),
-			logout: () => set(() => ({ hasLoggedIn: false })),
+			login: () => set({ hasLoggedIn: true }),
+			logout: () => set({ hasLoggedIn: false }),
 		}),
 		{
 			name: 'hasLoggedIn',
