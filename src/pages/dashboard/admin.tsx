@@ -1,22 +1,23 @@
-import LogOutMutation from '~/api/mutations/logout-mutation'
-import useMeQuery from '~/api/queries/me-query'
+import { useEffect } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
+import useLogoutMutation from '~/api/auth/logout-mutation'
+import useMeQuery from '~/api/auth/me-query'
 import Button from '~/components/base/button/button'
 
 function AdminPage() {
+	const navigate = useNavigate()
 	const { data, isLoading, isError, error } = useMeQuery()
 
-	const { isError: LOIsError, error: LOError, mutate } = LogOutMutation()
+	const mutation = useLogoutMutation()
 
-	function handleLogout() {
-		mutate()
-	}
+	useEffect(() => {
+		if (mutation.isSuccess) {
+			navigate('/')
+		}
+	}, [mutation.isSuccess, navigate])
 
 	if (isError) {
 		return <div>{error.message}</div>
-	}
-
-	if (LOIsError) {
-		return <div>{LOError.message}</div>
 	}
 
 	if (isLoading) {
@@ -26,8 +27,15 @@ function AdminPage() {
 	return (
 		<div>
 			<p>admin page</p>
+			<Link to={'/admin/users'}>Users</Link>
 			<p>{data?.data.username}</p>
-			<Button onClick={handleLogout}>logout</Button>
+			<Button
+				onClick={() => {
+					mutation.mutate()
+				}}
+			>
+				logout
+			</Button>
 		</div>
 	)
 }

@@ -9,6 +9,6 @@ export const authApi = {
 }
 
 export const userApi = {
-	getAllUsers: `${BASEURL}/users`,
-	getSingleUser: (uuid: string) => `${BASEURL}/users/${uuid}`,
+	allUsers: `${BASEURL}/users`,
+	singleUser: (uuid: string) => `${BASEURL}/users/${uuid}`,
 }
