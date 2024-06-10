@@ -20,10 +20,8 @@ function UsserCard({ id, username }: Users) {
 		console.log('id is', id)
 
 		const payload: Partial<UserPayload> = {
-			name: 'pino4 edit',
-			username: 'pino4 edit',
-			email: 'pino4@mail.com',
-			password: 'pino4',
+			fullname: 'user edit 01',
+			username: 'user00501',
 		}
 
 		const data = {

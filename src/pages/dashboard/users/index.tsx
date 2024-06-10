@@ -8,10 +8,12 @@ function UserPage() {
 
 	const addNewUser = () => {
 		const payload: UserPayload = {
-			name: 'user 4',
-			username: 'user 4',
-			email: 'user4@mail.com',
-			password: 'user4',
+			name: 'user005',
+			fullname: 'user005',
+			username: 'user005',
+			email: 'user005@mail.com',
+			password: 'user005',
+			role: 'user',
 		}
 
 		mutation.mutate(payload, {

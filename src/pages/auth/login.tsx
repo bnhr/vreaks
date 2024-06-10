@@ -13,17 +13,17 @@ function LoginPage() {
 
 	function handleClick() {
 		mutate(
-			{ username: 'user 1', password: 'user 1' },
+			{ username: 'user01', password: 'user01' },
 			{
 				onSuccess: (data) => {
 					const res = data as LoginData
-					if (data) {
-						Cookies.set('token', res.data.accessToken, {
+					if (res.status === 'success') {
+						Cookies.set('token', res.data.access_token, {
 							expires: 1,
 							path: '/',
 							secure: true,
 						})
-						Cookies.set('refresh', res.data.refreshToken, {
+						Cookies.set('refresh', res.data.refresh_token, {
 							expires: 1,
 							path: '/',
 							secure: true,

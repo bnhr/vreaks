@@ -6,9 +6,10 @@ export interface Users {
 export interface UserPayload {
 	name: string
 	username: string
+	fullname: string
 	email: string
 	password: string
-	role?: 'ADMIN' | 'USER'
+	role?: 'admin' | 'user'
 }
 
 export interface UserEdit {

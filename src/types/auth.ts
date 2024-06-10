@@ -1,10 +1,10 @@
 export interface LoginData {
-	statusCode: number
-	message: string
+	code: number
+	status: 'success' | 'error'
 	data: Tokens
 }
 
 interface Tokens {
-	accessToken: string
-	refreshToken: string
+	access_token: string
+	refresh_token: string
 }
