@@ -2,9 +2,9 @@ import { useNavigate } from 'react-router-dom'
 import Cookies from 'js-cookie'
 
 import Button from '~/components/base/button/button'
-import useLoginState from '~/store/login'
 import useLoginMutation from '~/api/auth/login-mutation'
 import { LoginData } from '~/types/auth'
+import useLoginState from '~/store/login'
 
 function LoginPage() {
 	const navigate = useNavigate()
