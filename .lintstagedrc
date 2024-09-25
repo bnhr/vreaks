@@ -1,4 +1,4 @@
 {
-	"src/**/*.{ts,tsx}": ["eslint --max-warnings 0 --fix"],
+	"src/**/*.{ts,tsx}": ["pnpm run eslint"],
 	"src/**/*.{ts,tsx,json,css,scss,md,mdx,js}": ["prettier --write"]
 }

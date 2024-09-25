@@ -4,6 +4,7 @@ import useCounterState from '~/store/counter'
 
 function HomePage() {
 	const { count, increase, decrease } = useCounterState()
+
 	return (
 		<div>
 			<p>hello world</p>
