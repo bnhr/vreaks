@@ -10,7 +10,7 @@
 		"format": "prettier --write src",
 		"test": "vitest",
 		"preview": "vite preview",
-		"prepare": "husky install",
+		"prepare": "husky",
 		"knip": "knip"
 	},
 	"dependencies": {
