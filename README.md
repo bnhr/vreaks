@@ -1,8 +1,8 @@
-# VREAK
+# VREAKS
 
 > An opinionated React and Vite template for accelerating modern Single Page Application (SPA) development
 
-VREAK is a carefully curated template that combines the power of Vite and React with a selection of essential technologies to jumpstart your next Single Page Application (SPA) project. It aims to provide a solid foundation with best practices and optimal configurations out of the box, specifically tailored for client-side rendered applications.
+VREAKS is a carefully curated template that combines the power of Vite and React with a selection of essential technologies to jumpstart your next Single Page Application (SPA) project. It aims to provide a solid foundation with best practices and optimal configurations out of the box, specifically tailored for client-side rendered applications.
 
 ## Features
 
@@ -28,7 +28,7 @@ Choose your preferred package manager:
 #### Using PNPM (recommended)
 
 ```bash
-git clone https://github.com/bnhr/vreak.git your-project-name
+git clone https://github.com/bnhr/vreaks.git your-project-name
 cd your-project-name
 pnpm install
 pnpm run dev
@@ -37,7 +37,7 @@ pnpm run dev
 #### Using NPM
 
 ```bash
-git clone https://github.com/bnhr/vreak.git your-project-name
+git clone https://github.com/bnhr/vreaks.git your-project-name
 cd your-project-name
 npm install
 npm run dev
@@ -46,7 +46,7 @@ npm run dev
 #### Using Yarn
 
 ```bash
-git clone https://github.com/bnhr/vreak.git your-project-name
+git clone https://github.com/bnhr/vreaks.git your-project-name
 cd your-project-name
 yarn
 yarn dev
