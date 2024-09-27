@@ -1,4 +1,4 @@
-function GlobalLoader() {
+export function GlobalLoader() {
 	return (
 		<div className="fixed left-[50%] top-[50%] z-20 translate-x-[-50%] translate-y-[-50%]">
 			<div className="flex items-center justify-center">
@@ -16,5 +16,3 @@ function GlobalLoader() {
 		</div>
 	)
 }
-
-export default GlobalLoader

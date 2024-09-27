@@ -1,10 +1,10 @@
 import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { useLoginState } from '~/store/login'
 
-import useLoginState from '~/store/login'
 import { ChildrenProps } from '~/types'
 
-function ProtectedPage({ children }: ChildrenProps) {
+export function ProtectedPage({ children }: ChildrenProps) {
 	const { hasLoggedIn } = useLoginState()
 	const navigate = useNavigate()
 
@@ -16,5 +16,3 @@ function ProtectedPage({ children }: ChildrenProps) {
 
 	return <>{children}</>
 }
-
-export default ProtectedPage

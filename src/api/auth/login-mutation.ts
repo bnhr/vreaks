@@ -9,7 +9,7 @@ interface LoginPayload {
 	password: string
 }
 
-function useLoginMutation() {
+export function useLoginMutation() {
 	return useMutation({
 		mutationFn: async (payload: LoginPayload) => {
 			try {
@@ -34,5 +34,3 @@ function useLoginMutation() {
 		},
 	})
 }
-
-export default useLoginMutation

@@ -2,12 +2,12 @@ import { useMutation } from '@tanstack/react-query'
 import wretch from 'wretch'
 
 import { userApi } from '../list'
-import generateToken from '../refresh'
 import { SuccessResult } from '~/types'
 import { Users } from '~/types/users'
 import { token } from '~/constant'
+import { generateToken } from '../refresh'
 
-function useDeleteUserMutation() {
+export function useDeleteUserMutation() {
 	return useMutation({
 		mutationFn: async (uuid: string) => {
 			try {
@@ -40,5 +40,3 @@ function useDeleteUserMutation() {
 		},
 	})
 }
-
-export default useDeleteUserMutation

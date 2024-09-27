@@ -1,7 +1,9 @@
 import { useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import useLogoutMutation from '~/api/auth/logout-mutation'
-import useMeQuery from '~/api/auth/me-query'
+
+import { useLogoutMutation } from '~/api/auth/logout-mutation'
+import { useMeQuery } from '~/api/auth/me-query'
+
 import Button from '~/components/base/button/button'
 
 function AdminPage() {

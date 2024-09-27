@@ -7,7 +7,7 @@ interface LoginState {
 	logout: () => void
 }
 
-const useLoginState = create<LoginState>()(
+export const useLoginState = create<LoginState>()(
 	persist(
 		(set) => ({
 			hasLoggedIn: false,
@@ -19,5 +19,3 @@ const useLoginState = create<LoginState>()(
 		},
 	),
 )
-
-export default useLoginState

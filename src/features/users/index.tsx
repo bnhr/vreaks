@@ -1,7 +1,7 @@
-import useUsersQuery from '~/api/users/users-query'
-import UsserCard from './user-card'
+import { useUsersQuery } from '~/api/users/users-query'
+import { UsserCard } from './user-card'
 
-function UsersList() {
+export function UsersList() {
 	const { data, error, isLoading } = useUsersQuery()
 
 	if (error) {
@@ -22,5 +22,3 @@ function UsersList() {
 		</>
 	)
 }
-
-export default UsersList

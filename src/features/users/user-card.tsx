@@ -1,9 +1,9 @@
-import useDeleteUserMutation from '~/api/users/delete-mutation'
-import useUpdateUserMutation from '~/api/users/update-mutation'
+import { useDeleteUserMutation } from '~/api/users/delete-mutation'
+import { useUpdateUserMutation } from '~/api/users/update-mutation'
 import { queryClient } from '~/constant'
 import { UserPayload, Users } from '~/types/users'
 
-function UsserCard({ id, username }: Users) {
+export function UsserCard({ id, username }: Users) {
 	const mutation = useDeleteUserMutation()
 	const updateMutation = useUpdateUserMutation()
 
@@ -50,5 +50,3 @@ function UsserCard({ id, username }: Users) {
 		</div>
 	)
 }
-
-export default UsserCard

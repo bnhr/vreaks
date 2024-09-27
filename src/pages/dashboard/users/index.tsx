@@ -1,6 +1,6 @@
-import useAddUserMutation from '~/api/users/add-mutation'
+import { useAddUserMutation } from '~/api/users/add-mutation'
 import { queryClient } from '~/constant'
-import UsersList from '~/features/users'
+import { UsersList } from '~/features/users'
 import { UserPayload } from '~/types/users'
 
 function UserPage() {

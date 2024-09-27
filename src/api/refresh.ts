@@ -2,7 +2,7 @@ import wretch from 'wretch'
 import Cookies from 'js-cookie'
 import { authApi } from './list'
 
-function generateToken() {
+export function generateToken() {
 	const token = Cookies.get('refresh')
 	const result = wretch(authApi.refresh)
 		.auth(`Bearer ${token}`)
@@ -23,5 +23,3 @@ function generateToken() {
 		})
 	return result
 }
-
-export default generateToken
