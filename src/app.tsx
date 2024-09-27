@@ -1,15 +1,16 @@
-import { Suspense, lazy } from 'react'
+import { lazy } from 'react'
 import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import { QueryClientProvider } from '@tanstack/react-query'
 
-import GlobalLoader from '~/layouts/global-loader'
 import { queryClient } from './constant'
+import LazyComponent from './layouts/lazy-comp'
+import AdminLayout from './layouts/admin/admin-layout'
+import ProtectedPage from '~/pages/auth/protected'
 
 const AboutPage = lazy(() => import('~/pages/front/about'))
 const HomePage = lazy(() => import('~/pages/front/home'))
 const NotFound = lazy(() => import('~/pages/errors/not-found'))
-const Protected = lazy(() => import('~/pages/auth/protected'))
 const Login = lazy(() => import('~/pages/auth/login'))
 const Admin = lazy(() => import('~/pages/dashboard/admin'))
 const Users = lazy(() => import('~/pages/dashboard/users'))
@@ -18,46 +19,52 @@ const router = createBrowserRouter([
 	{
 		path: '/',
 		element: (
-			<Suspense fallback={<GlobalLoader />}>
+			<LazyComponent>
 				<HomePage />
-			</Suspense>
+			</LazyComponent>
 		),
 	},
 	{
 		path: 'about',
 		element: (
-			<Suspense fallback={<GlobalLoader />}>
+			<LazyComponent>
 				<AboutPage />
-			</Suspense>
+			</LazyComponent>
 		),
 	},
 	{
 		path: 'login',
 		element: (
-			<Suspense fallback={<GlobalLoader />}>
+			<LazyComponent>
 				<Login />
-			</Suspense>
+			</LazyComponent>
 		),
 	},
 	{
 		path: 'admin',
 		element: (
-			<Suspense fallback={<GlobalLoader />}>
-				<Protected>
-					<Admin />
-				</Protected>
-			</Suspense>
+			<ProtectedPage>
+				<AdminLayout />
+			</ProtectedPage>
 		),
-	},
-	{
-		path: 'admin/users',
-		element: (
-			<Suspense fallback={<GlobalLoader />}>
-				<Protected>
-					<Users />
-				</Protected>
-			</Suspense>
-		),
+		children: [
+			{
+				index: true,
+				element: (
+					<LazyComponent>
+						<Admin />
+					</LazyComponent>
+				),
+			},
+			{
+				path: 'users',
+				element: (
+					<LazyComponent>
+						<Users />
+					</LazyComponent>
+				),
+			},
+		],
 	},
 	{
 		path: '*',
@@ -67,12 +74,10 @@ const router = createBrowserRouter([
 
 function App() {
 	return (
-		<>
-			<QueryClientProvider client={queryClient}>
-				<ReactQueryDevtools initialIsOpen={false} />
-				<RouterProvider router={router} />
-			</QueryClientProvider>
-		</>
+		<QueryClientProvider client={queryClient}>
+			<ReactQueryDevtools initialIsOpen={false} />
+			<RouterProvider router={router} />
+		</QueryClientProvider>
 	)
 }
 
