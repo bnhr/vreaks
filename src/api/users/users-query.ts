@@ -3,11 +3,11 @@ import wretch from 'wretch'
 
 import { userApi } from '../list'
 import { SuccessResult } from '~/types'
-import generateToken from '../refresh'
 import { token } from '~/constant'
 import { Users } from '~/types/users'
+import { generateToken } from '../refresh'
 
-function useUsersQuery() {
+export function useUsersQuery() {
 	return useQuery({
 		queryKey: ['users'],
 		queryFn: async () => {
@@ -33,5 +33,3 @@ function useUsersQuery() {
 		},
 	})
 }
-
-export default useUsersQuery

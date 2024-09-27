@@ -2,12 +2,12 @@ import { useMutation } from '@tanstack/react-query'
 import wretch from 'wretch'
 
 import { userApi } from '../list'
-import generateToken from '../refresh'
 import { SuccessResult } from '~/types'
 import { UserEdit, Users } from '~/types/users'
 import { token } from '~/constant'
+import { generateToken } from '../refresh'
 
-function useUpdateUserMutation() {
+export function useUpdateUserMutation() {
 	return useMutation({
 		mutationFn: async (data: UserEdit) => {
 			try {
@@ -40,5 +40,3 @@ function useUpdateUserMutation() {
 		},
 	})
 }
-
-export default useUpdateUserMutation

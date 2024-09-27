@@ -2,12 +2,12 @@ import { useMutation } from '@tanstack/react-query'
 import wretch from 'wretch'
 
 import { userApi } from '../list'
-import generateToken from '../refresh'
 import { SuccessResult } from '~/types'
 import { UserPayload, Users } from '~/types/users'
 import { token } from '~/constant'
+import { generateToken } from '../refresh'
 
-function useAddUserMutation() {
+export function useAddUserMutation() {
 	return useMutation({
 		mutationFn: async (payload: UserPayload) => {
 			try {
@@ -40,5 +40,3 @@ function useAddUserMutation() {
 		},
 	})
 }
-
-export default useAddUserMutation

@@ -8,12 +8,10 @@ interface CounterState {
 	decreaseBy: (by: number) => void
 }
 
-const useCounterState = create<CounterState>()((set) => ({
+export const useCounterState = create<CounterState>()((set) => ({
 	count: 0,
 	increase: () => set((state) => ({ count: state.count + 1 })),
 	decrease: () => set((state) => ({ count: state.count - 1 })),
 	increaseBy: (by) => set((state) => ({ count: state.count + by })),
 	decreaseBy: (by) => set((state) => ({ count: state.count - by })),
 }))
-
-export default useCounterState

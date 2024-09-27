@@ -3,10 +3,10 @@ import wretch from 'wretch'
 import Cookies from 'js-cookie'
 
 import { authApi } from '../list'
-import generateToken from '../refresh'
 import { token } from '~/constant'
+import { generateToken } from '../refresh'
 
-function useLogoutMutation() {
+export function useLogoutMutation() {
 	return useMutation({
 		mutationFn: async () => {
 			try {
@@ -38,5 +38,3 @@ function useLogoutMutation() {
 		},
 	})
 }
-
-export default useLogoutMutation

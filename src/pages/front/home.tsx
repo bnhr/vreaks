@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 import Button from '~/components/base/button/button'
-import useCounterState from '~/store/counter'
+import { useCounterState } from '~/store/counter'
 
 function HomePage() {
 	const { count, increase, decrease } = useCounterState()

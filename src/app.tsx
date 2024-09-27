@@ -4,9 +4,9 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import { QueryClientProvider } from '@tanstack/react-query'
 
 import { queryClient } from './constant'
-import LazyComponent from './layouts/lazy-comp'
-import AdminLayout from './layouts/admin/admin-layout'
-import ProtectedPage from '~/pages/auth/protected'
+import { LazyComponent } from './layouts/lazy-comp'
+import { AdminLayout } from './layouts/admin/admin-layout'
+import { ProtectedPage } from './pages/auth/protected'
 
 const AboutPage = lazy(() => import('~/pages/front/about'))
 const HomePage = lazy(() => import('~/pages/front/home'))

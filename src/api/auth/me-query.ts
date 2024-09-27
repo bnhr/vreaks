@@ -4,13 +4,13 @@ import Cookies from 'js-cookie'
 
 import { authApi } from '../list'
 import { SuccessResult } from '~/types'
-import generateToken from '../refresh'
+import { generateToken } from '../refresh'
 
 interface Me {
 	username: string
 }
 
-function useMeQuery() {
+export function useMeQuery() {
 	return useQuery({
 		queryKey: ['me'],
 		staleTime: Infinity,
@@ -41,5 +41,3 @@ function useMeQuery() {
 		},
 	})
 }
-
-export default useMeQuery
