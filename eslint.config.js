@@ -28,7 +28,6 @@ export default tseslint.config(
 		},
 		rules: {
 			...reactHooks.configs.recommended.rules,
-			'indent': ['error', 'tab'],
 			'linebreak-style': ['error', 'unix'],
 			'quotes': ['error', 'single'],
 			'semi': ['error', 'never'],
