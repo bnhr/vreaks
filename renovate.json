@@ -1,7 +1,7 @@
 {
   "timezone": "Asia/Jakarta",
   "schedule": ["every weekend"],
-  "extends": ["config:base"],
+  "extends": ["config:recommended"],
   "packageRules": [
     {
       "matchUpdateTypes": ["major", "minor", "patch", "digest"],
