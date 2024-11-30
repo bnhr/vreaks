@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router'
 import Button from '~/components/base/button/button'
 import { useCounterState } from '~/store/counter'
 

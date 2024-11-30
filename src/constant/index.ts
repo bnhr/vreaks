@@ -1,5 +1,4 @@
 import { QueryClient } from '@tanstack/react-query'
-import Cookies from 'js-cookie'
 
 export const queryClient = new QueryClient({
 	defaultOptions: {
@@ -8,6 +7,3 @@ export const queryClient = new QueryClient({
 		},
 	},
 })
-
-export const token = Cookies.get('token')
-export const refreshToken = Cookies.get('refresh')

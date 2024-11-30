@@ -1,7 +1,8 @@
 import { useMutation } from '@tanstack/react-query'
-import wretch from 'wretch'
 
-import { authApi } from '../list'
+import { kyAPI } from '~/api/fetchers/ky'
+import { authApi } from '~/api/list'
+
 import { LoginData } from '~/types/auth'
 
 interface LoginPayload {
@@ -13,19 +14,11 @@ export function useLoginMutation() {
 	return useMutation({
 		mutationFn: async (payload: LoginPayload) => {
 			try {
-				const result: Promise<LoginData> = wretch(authApi.login)
-					.post(payload)
-					.badRequest((err) => {
-						throw new Error(err.response.statusText)
+				const result = await kyAPI
+					.post(authApi.login, {
+						json: payload,
 					})
-					.unauthorized((err) => {
-						throw new Error(err.response.statusText)
-					})
-					.internalError((err) => {
-						throw new Error(err.response.statusText)
-					})
-					.json()
-
+					.json<LoginData>()
 				return result
 			} catch (error) {
 				console.log('🚀 ~ mutationFn: ~ error:', error)

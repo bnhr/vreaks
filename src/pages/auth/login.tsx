@@ -1,8 +1,7 @@
-import { useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router'
 import Cookies from 'js-cookie'
 
 import Button from '~/components/base/button/button'
-import { LoginData } from '~/types/auth'
 import { useLoginState } from '~/store/login'
 import { useLoginMutation } from '~/api/auth/login-mutation'
 
@@ -16,7 +15,9 @@ function LoginPage() {
 			{ username: 'user01', password: 'user01' },
 			{
 				onSuccess: (data) => {
-					const res = data as LoginData
+					const res = data
+					console.log('🚀 ~ handleClick ~ res:', res)
+
 					if (res.status === 'success') {
 						Cookies.set('token', res.data.access_token, {
 							expires: 1,

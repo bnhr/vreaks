@@ -1,37 +1,19 @@
 import { useMutation } from '@tanstack/react-query'
-import wretch from 'wretch'
 
-import { userApi } from '../list'
 import { SuccessResult } from '~/types'
 import { UserPayload, Users } from '~/types/users'
-import { token } from '~/constant'
-import { generateToken } from '../refresh'
+import { kyAPI } from '~/api/fetchers/ky'
+import { userApi } from '~/api/list'
 
 export function useAddUserMutation() {
 	return useMutation({
 		mutationFn: async (payload: UserPayload) => {
 			try {
-				const result: Promise<SuccessResult<Partial<Users>>> = wretch(
-					userApi.allUsers,
-				)
-					.auth(`Bearer ${token}`)
-					.post(payload)
-					.badRequest((err) => {
-						throw new Error(err.response.statusText)
+				const result = await kyAPI
+					.post(userApi.allUsers, {
+						json: payload,
 					})
-					.unauthorized(async () => {
-						generateToken()
-						// Retry the request after refreshing the token
-						await wretch(userApi.allUsers)
-							.auth(`Bearer ${token}`)
-							.post(payload)
-							.json()
-					})
-					.internalError((err) => {
-						throw new Error(err.response.statusText)
-					})
-					.json()
-
+					.json<SuccessResult<Partial<Users>>>()
 				return result
 			} catch (error) {
 				console.log('🚀 ~ mutationFn: ~ error:', error)

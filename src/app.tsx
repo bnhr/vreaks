@@ -1,5 +1,5 @@
 import { lazy } from 'react'
-import { RouterProvider, createBrowserRouter } from 'react-router-dom'
+import { BrowserRouter, Route, Routes } from 'react-router'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import { QueryClientProvider } from '@tanstack/react-query'
 
@@ -10,73 +10,61 @@ import { ProtectedPage } from './pages/auth/protected'
 
 const AboutPage = lazy(() => import('~/pages/front/about'))
 const HomePage = lazy(() => import('~/pages/front/home'))
-const NotFound = lazy(() => import('~/pages/errors/not-found'))
-const Login = lazy(() => import('~/pages/auth/login'))
-const Admin = lazy(() => import('~/pages/dashboard/admin'))
-const Users = lazy(() => import('~/pages/dashboard/users'))
+const NotFoundPage = lazy(() => import('~/pages/errors/not-found'))
+const LoginPage = lazy(() => import('~/pages/auth/login'))
+const AdminPage = lazy(() => import('~/pages/dashboard/admin'))
+const UsersPage = lazy(() => import('~/pages/dashboard/users'))
 
-const router = createBrowserRouter([
-	{
-		path: '/',
-		element: (
-			<LazyComponent>
-				<HomePage />
-			</LazyComponent>
-		),
-	},
-	{
-		path: 'about',
-		element: (
-			<LazyComponent>
-				<AboutPage />
-			</LazyComponent>
-		),
-	},
-	{
-		path: 'login',
-		element: (
-			<LazyComponent>
-				<Login />
-			</LazyComponent>
-		),
-	},
-	{
-		path: 'admin',
-		element: (
-			<ProtectedPage>
-				<AdminLayout />
-			</ProtectedPage>
-		),
-		children: [
-			{
-				index: true,
-				element: (
-					<LazyComponent>
-						<Admin />
-					</LazyComponent>
-				),
-			},
-			{
-				path: 'users',
-				element: (
-					<LazyComponent>
-						<Users />
-					</LazyComponent>
-				),
-			},
-		],
-	},
-	{
-		path: '*',
-		element: <NotFound />,
-	},
-])
+function Router() {
+	return (
+		<BrowserRouter>
+			<Routes>
+				<Route
+					index
+					element={
+						<LazyComponent>
+							<HomePage />
+						</LazyComponent>
+					}
+				/>
+				<Route path="about" element={<AboutPage />} />
+				<Route path="login" element={<LoginPage />} />
+				<Route
+					path="admin"
+					element={
+						<ProtectedPage>
+							<AdminLayout />
+						</ProtectedPage>
+					}
+				>
+					<Route
+						index
+						element={
+							<LazyComponent>
+								<AdminPage />
+							</LazyComponent>
+						}
+					/>
+					<Route
+						path="users"
+						element={
+							<LazyComponent>
+								<UsersPage />
+							</LazyComponent>
+						}
+					/>
+				</Route>
+				<Route path="*" element={<NotFoundPage />} />
+			</Routes>
+		</BrowserRouter>
+	)
+}
 
 function App() {
 	return (
 		<QueryClientProvider client={queryClient}>
 			<ReactQueryDevtools initialIsOpen={false} />
-			<RouterProvider router={router} />
+			<Router />
 		</QueryClientProvider>
 	)
 }

@@ -1,10 +1,8 @@
 import { useQuery } from '@tanstack/react-query'
-import wretch from 'wretch'
-import Cookies from 'js-cookie'
 
-import { authApi } from '../list'
 import { SuccessResult } from '~/types'
-import { generateToken } from '../refresh'
+import { authApi } from '~/api/list'
+import { kyAPI } from '~/api/fetchers/ky'
 
 interface Me {
 	username: string
@@ -15,24 +13,8 @@ export function useMeQuery() {
 		queryKey: ['me'],
 		staleTime: Infinity,
 		queryFn: async () => {
-			const token = Cookies.get('token')
 			try {
-				const result: Promise<SuccessResult<Me>> = wretch(authApi.me)
-					.auth(`Bearer ${token}`)
-					.get()
-					.badRequest((err) => {
-						throw new Error(err.response.statusText)
-					})
-					.unauthorized(async () => {
-						generateToken()
-
-						await wretch(authApi.me).auth(`Bearer ${token}`).get().json()
-					})
-					.internalError((err) => {
-						throw new Error(err.response.statusText)
-					})
-					.json()
-
+				const result = await kyAPI.get(authApi.me).json<SuccessResult<Me>>()
 				return result
 			} catch (error) {
 				console.log('🚀 ~ mutationFn: ~ error:', error)

@@ -1,7 +1,5 @@
-import { useEffect } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
-
-import { useLogoutMutation } from '~/api/auth/logout-mutation'
+import Cookies from 'js-cookie'
+import { Link, useNavigate } from 'react-router'
 import { useMeQuery } from '~/api/auth/me-query'
 
 import Button from '~/components/base/button/button'
@@ -9,14 +7,6 @@ import Button from '~/components/base/button/button'
 function AdminPage() {
 	const navigate = useNavigate()
 	const { data, isLoading, isError, error } = useMeQuery()
-
-	const mutation = useLogoutMutation()
-
-	useEffect(() => {
-		if (mutation.isSuccess) {
-			navigate('/')
-		}
-	}, [mutation.isSuccess, navigate])
 
 	if (isError) {
 		return <div>{error.message}</div>
@@ -33,7 +23,11 @@ function AdminPage() {
 			<p>{data?.data.username}</p>
 			<Button
 				onClick={() => {
-					mutation.mutate()
+					Cookies.remove('token')
+					Cookies.remove('refresh')
+					setTimeout(() => {
+						navigate('/')
+					}, 1000)
 				}}
 			>
 				logout
