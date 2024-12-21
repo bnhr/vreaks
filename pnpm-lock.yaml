@@ -28,7 +28,7 @@ dependencies:
     version: 19.0.0(react@19.0.0)
   react-router:
     specifier: ^7.0.1
-    version: 7.0.2(react-dom@19.0.0)(react@19.0.0)
+    version: 7.1.0(react-dom@19.0.0)(react@19.0.0)
   tailwind-merge:
     specifier: ^2.2.1
     version: 2.5.5
@@ -3845,8 +3845,8 @@ packages:
     engines: {node: '>=0.10.0'}
     dev: true
 
-  /react-router@7.0.2(react-dom@19.0.0)(react@19.0.0):
-    resolution: {integrity: sha512-m5AcPfTRUcjwmhBzOJGEl6Y7+Crqyju0+TgTQxoS4SO+BkWbhOrcfZNq6wSWdl2BBbJbsAoBUb8ZacOFT+/JlA==}
+  /react-router@7.1.0(react-dom@19.0.0)(react@19.0.0):
+    resolution: {integrity: sha512-VcFhWqkNIcojDRYaUO8qV0Jib52s9ULpCp3nkBbmrvtoCVFRp6tmk3tJ2w9BZauVctA1YRnJlFYDn9iJRuCpGA==}
     engines: {node: '>=20.0.0'}
     peerDependencies:
       react: '>=18'
