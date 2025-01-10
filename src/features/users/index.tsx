@@ -15,8 +15,8 @@ export function UsersList() {
 	return (
 		<>
 			{data?.data.map((user) => (
-				<div key={user.id} className="py-2">
-					<UsserCard id={user.id} username={user.username} />
+				<div key={user.uuid} className="py-2">
+					<UsserCard uuid={user.uuid} username={user.username} />
 				</div>
 			))}
 		</>

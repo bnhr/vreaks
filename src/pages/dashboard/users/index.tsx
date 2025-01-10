@@ -8,11 +8,11 @@ function UserPage() {
 
 	const addNewUser = () => {
 		const payload: UserPayload = {
-			name: 'user005',
-			fullname: 'user005',
-			username: 'user005',
+			name: 'user0005',
+			fullname: 'user0005',
+			username: 'user0005',
 			email: 'user005@mail.com',
-			password: 'user005',
+			password: 'user0005',
 			role: 'user',
 		}
 

@@ -12,11 +12,10 @@ function LoginPage() {
 
 	function handleClick() {
 		mutate(
-			{ username: 'user01', password: 'user01' },
+			{ username: 'user0001', password: 'user0001' },
 			{
 				onSuccess: (data) => {
 					const res = data
-					console.log('🚀 ~ handleClick ~ res:', res)
 
 					if (res.status === 'success') {
 						Cookies.set('token', res.data.access_token, {

@@ -3,7 +3,7 @@ import { useUpdateUserMutation } from '~/api/users/update-mutation'
 import { queryClient } from '~/constant'
 import { UserPayload, Users } from '~/types/users'
 
-export function UsserCard({ id, username }: Users) {
+export function UsserCard({ uuid, username }: Users) {
 	const mutation = useDeleteUserMutation()
 	const updateMutation = useUpdateUserMutation()
 
@@ -21,7 +21,7 @@ export function UsserCard({ id, username }: Users) {
 
 		const payload: Partial<UserPayload> = {
 			fullname: 'user edit 01',
-			username: 'user00501',
+			username: 'user0001',
 		}
 
 		const data = {
@@ -40,10 +40,10 @@ export function UsserCard({ id, username }: Users) {
 		<div>
 			<p>{username}</p>
 			<div className="flex items-center gap-2">
-				<button type="button" onClick={() => handleUpdateUser(id)}>
+				<button type="button" onClick={() => handleUpdateUser(uuid)}>
 					update
 				</button>
-				<button type="button" onClick={() => handleDeleteUser(id)}>
+				<button type="button" onClick={() => handleDeleteUser(uuid)}>
 					delete
 				</button>
 			</div>
