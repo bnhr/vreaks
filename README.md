@@ -19,13 +19,22 @@ VREAKS is a carefully curated template that combines the power of Vite and React
 ### Prerequisites
 
 - Node.js (version 20 or later)
-- PNPM, NPM, or Yarn
+- Bun, PNPM, NPM, or Yarn
 
 ### Installation
 
 Choose your preferred package manager:
 
-#### Using PNPM (recommended)
+#### Using Bun (recommended)
+
+```bash
+git clone https://github.com/bnhr/vreaks.git your-project-name
+cd your-project-name
+bun install
+bun run dev
+```
+
+#### Using PNPM
 
 ```bash
 git clone https://github.com/bnhr/vreaks.git your-project-name
@@ -80,4 +89,3 @@ After installation, you can start developing your SPA project:
 
 - [ ] Implement headless components as a design system using Radix UI or React Aria Components for customizable, accessible UI elements in SPAs.
 - [ ] Migrate to Biome for faster linting and formatting once it's stable.
-- [ ] Integrate Bun as a faster JavaScript runtime alternative to Node.js.
