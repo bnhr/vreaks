@@ -7,11 +7,11 @@ function HomePage() {
 
 	return (
 		<div>
-			<p>hello world</p>
+			<p className="text-lg font-medium">hello world</p>
 
 			<Link to="/login">login</Link>
 
-			<div className="ml-12 mt-12">
+			<div className="mt-12 ml-12">
 				<Button onClick={increase}>increase</Button>
 				<p>{count}</p>
 				<Button onClick={decrease}>decrease</Button>
