@@ -18,7 +18,7 @@ VREAKS is a carefully curated template that combines the power of Vite and React
 
 ### Prerequisites
 
-- Node.js (version 20 or later)
+- Node.js (version 22 or later)
 - Bun, PNPM, NPM, or Yarn
 
 ### Installation
@@ -69,7 +69,7 @@ rm -rf .git
 
 ## Essential Technologies
 
-- **React 18**: The latest version of React for building user interfaces, offering improved performance and new features for SPAs.
+- **React**: The latest version of React for building user interfaces, offering improved performance and new features for SPAs.
 - **TypeScript**: Adds static typing to JavaScript, enhancing code quality and developer productivity in large-scale SPA projects.
 - **Tailwind CSS**: A utility-first CSS framework for rapid UI development without conflicting styles, perfect for component-based SPA architectures.
 - **Prettier with Tailwind Plugin**: Ensures consistent code formatting, including proper Tailwind class sorting.
@@ -81,9 +81,16 @@ rm -rf .git
 
 After installation, you can start developing your SPA project:
 
-1. Run the development server: `pnpm run dev`
+1. Run the development server: `bun run dev`
 2. Open your browser and visit `http://localhost:5173`
 3. Start editing the files in the `src` directory. The changes will be reflected in real-time.
+
+## Contributions and Discussions
+
+This project is intended as a personal learning and experimentation space, so **I do not accept contributions or pull requests**. However, I'm open to discussions or suggestions regarding the design choices and technical decisions made in this project.
+
+If you have ideas or questions about the project, feel free to open an issue or start a discussion in the repository. Constructive feedback is always appreciated!
+
 
 ## Todo
 
