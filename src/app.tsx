@@ -63,7 +63,9 @@ function Router() {
 function App() {
 	return (
 		<QueryClientProvider client={queryClient}>
-			<ReactQueryDevtools initialIsOpen={false} />
+			{import.meta.env.VITE_MODE !== 'production' ? (
+				<ReactQueryDevtools initialIsOpen={false} />
+			) : null}
 			<Router />
 		</QueryClientProvider>
 	)
