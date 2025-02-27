@@ -20,7 +20,10 @@ describe('Should render button component properly', () => {
 	it('Should be disabled and ignore any events', () => {
 		const fn = vi.fn().mockImplementation(() => console.log('hello'))
 		render(
-			<Button onClick={fn} disabled>
+			<Button
+				onClick={fn}
+				disabled
+			>
 				button
 			</Button>,
 		)

@@ -27,8 +27,14 @@ function Router() {
 						</LazyComponent>
 					}
 				/>
-				<Route path="about" element={<AboutPage />} />
-				<Route path="login" element={<LoginPage />} />
+				<Route
+					path="about"
+					element={<AboutPage />}
+				/>
+				<Route
+					path="login"
+					element={<LoginPage />}
+				/>
 				<Route
 					path="admin"
 					element={
@@ -54,7 +60,10 @@ function Router() {
 						}
 					/>
 				</Route>
-				<Route path="*" element={<NotFoundPage />} />
+				<Route
+					path="*"
+					element={<NotFoundPage />}
+				/>
 			</Routes>
 		</BrowserRouter>
 	)

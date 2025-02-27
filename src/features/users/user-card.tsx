@@ -40,10 +40,16 @@ export function UsserCard({ uuid, username }: Users) {
 		<div>
 			<p>{username}</p>
 			<div className="flex items-center gap-2">
-				<button type="button" onClick={() => handleUpdateUser(uuid)}>
+				<button
+					type="button"
+					onClick={() => handleUpdateUser(uuid)}
+				>
 					update
 				</button>
-				<button type="button" onClick={() => handleDeleteUser(uuid)}>
+				<button
+					type="button"
+					onClick={() => handleDeleteUser(uuid)}
+				>
 					delete
 				</button>
 			</div>

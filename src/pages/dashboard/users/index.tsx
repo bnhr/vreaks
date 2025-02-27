@@ -26,7 +26,10 @@ function UserPage() {
 	return (
 		<div>
 			<div className="mb-4">
-				<button type="button" onClick={addNewUser}>
+				<button
+					type="button"
+					onClick={addNewUser}
+				>
 					Add user
 				</button>
 			</div>

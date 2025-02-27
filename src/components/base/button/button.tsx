@@ -5,7 +5,12 @@ type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement>
 const Button = forwardRef<HTMLButtonElement, ButtonProps>((props, _ref) => {
 	const { children, type = 'button', onClick, ...rest } = props
 	return (
-		<button ref={_ref} type={type} onClick={onClick} {...rest}>
+		<button
+			ref={_ref}
+			type={type}
+			onClick={onClick}
+			{...rest}
+		>
 			{children}
 		</button>
 	)

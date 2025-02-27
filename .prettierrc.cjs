@@ -8,7 +8,7 @@ module.exports = {
 	"jsxSingleQuote": false,
 	"quoteProps": "as-needed",
 	"trailingComma": "all",
-	"singleAttributePerLine": false,
+	"singleAttributePerLine": true,
 	"htmlWhitespaceSensitivity": "css",
 	"vueIndentScriptAndStyle": false,
 	"proseWrap": "preserve",
