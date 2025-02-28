@@ -1,6 +1,6 @@
 import { useMutation } from '@tanstack/react-query'
 import { kyAPI } from '~/api/fetchers/ky'
-import { userApi } from '~/api/list'
+import { userApi } from '~/api/fetchers/list'
 import { SuccessResult } from '~/types'
 
 import { UserEdit, Users } from '~/types/users'

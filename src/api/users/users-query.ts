@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query'
 import { kyAPI } from '~/api/fetchers/ky'
-import { userApi } from '~/api/list'
+import { userApi } from '~/api/fetchers/list'
 
 import { SuccessResult } from '~/types'
 import { Users } from '~/types/users'

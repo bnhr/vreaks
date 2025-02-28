@@ -12,7 +12,7 @@ function LoginPage() {
 
 	function handleClick() {
 		mutate(
-			{ username: 'user0001', password: 'user0001' },
+			{ username: 'user0001', password: 'password123456' },
 			{
 				onSuccess: (data) => {
 					const res = data

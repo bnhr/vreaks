@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query'
 
 import { SuccessResult } from '~/types'
-import { authApi } from '~/api/list'
+import { authApi } from '~/api/fetchers/list'
 import { kyAPI } from '~/api/fetchers/ky'
 
 interface Me {
