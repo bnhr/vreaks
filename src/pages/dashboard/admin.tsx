@@ -1,4 +1,3 @@
-import Cookies from 'js-cookie'
 import { Link, useNavigate } from 'react-router'
 import { useMeQuery } from '~/api/auth/me-query'
 
@@ -23,8 +22,6 @@ function AdminPage() {
 			<p>{data?.data.username}</p>
 			<Button
 				onClick={() => {
-					Cookies.remove('token')
-					Cookies.remove('refresh')
 					setTimeout(() => {
 						navigate('/')
 					}, 1000)

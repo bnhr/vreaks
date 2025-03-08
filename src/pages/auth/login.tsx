@@ -1,5 +1,4 @@
 import { useNavigate } from 'react-router'
-import Cookies from 'js-cookie'
 
 import Button from '~/components/base/button/button'
 import { useLoginState } from '~/store/login'
@@ -18,16 +17,6 @@ function LoginPage() {
 					const res = data
 
 					if (res.status === 'success') {
-						Cookies.set('token', res.data.access_token, {
-							expires: 1,
-							path: '/',
-							secure: true,
-						})
-						Cookies.set('refresh', res.data.refresh_token, {
-							expires: 1,
-							path: '/',
-							secure: true,
-						})
 						login()
 						navigate('/admin')
 					}
