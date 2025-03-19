@@ -3,17 +3,17 @@ import { BrowserRouter, Route, Routes } from 'react-router'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import { QueryClientProvider } from '@tanstack/react-query'
 
-import { queryClient } from './constant'
-import { LazyComponent } from './layouts/lazy-comp'
-import { AdminLayout } from './layouts/admin/admin-layout'
-import { ProtectedPage } from './pages/auth/protected'
+import { LazyComponent } from '~/components/layouts/lazy-comp'
+import { ProtectedPage } from '~/domain/auth/protected'
+import { AdminLayout } from '~/components/layouts/admin/admin-layout'
+import { queryClient } from '~/constant'
 
-const AboutPage = lazy(() => import('~/pages/front/about'))
-const HomePage = lazy(() => import('~/pages/front/home'))
-const NotFoundPage = lazy(() => import('~/pages/errors/not-found'))
-const LoginPage = lazy(() => import('~/pages/auth/login'))
-const AdminPage = lazy(() => import('~/pages/dashboard/admin'))
-const UsersPage = lazy(() => import('~/pages/dashboard/users'))
+const AboutPage = lazy(() => import('~/domain/about/about'))
+const HomePage = lazy(() => import('~/domain/home/home'))
+const NotFoundPage = lazy(() => import('~/domain/errors/not-found'))
+const LoginPage = lazy(() => import('~/domain/auth/login'))
+const AdminPage = lazy(() => import('~/domain/dashboard/admin'))
+const UsersPage = lazy(() => import('~/domain/dashboard/user'))
 
 function Router() {
 	return (
@@ -69,7 +69,7 @@ function Router() {
 	)
 }
 
-function App() {
+function Root() {
 	return (
 		<QueryClientProvider client={queryClient}>
 			{import.meta.env.VITE_MODE !== 'production' ? (
@@ -80,4 +80,4 @@ function App() {
 	)
 }
 
-export default App
+export default Root
