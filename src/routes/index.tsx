@@ -1,5 +1,5 @@
 import { lazy } from 'react'
-import { BrowserRouter, Route, Routes } from 'react-router'
+import { createBrowserRouter, RouterProvider } from 'react-router'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import { QueryClientProvider } from '@tanstack/react-query'
 
@@ -7,6 +7,7 @@ import { LazyComponent } from '~/components/layouts/lazy-comp'
 import { ProtectedPage } from '~/domain/auth/protected'
 import { AdminLayout } from '~/components/layouts/admin/admin-layout'
 import { queryClient } from '~/constant'
+import { MainLayout } from '~/components/layouts/main-layout'
 
 const AboutPage = lazy(() => import('~/domain/about/about'))
 const HomePage = lazy(() => import('~/domain/home/home'))
@@ -15,59 +16,68 @@ const LoginPage = lazy(() => import('~/domain/auth/login'))
 const AdminPage = lazy(() => import('~/domain/dashboard/admin'))
 const UsersPage = lazy(() => import('~/domain/dashboard/user'))
 
-function Router() {
-	return (
-		<BrowserRouter>
-			<Routes>
-				<Route
-					index
-					element={
-						<LazyComponent>
-							<HomePage />
-						</LazyComponent>
-					}
-				/>
-				<Route
-					path="about"
-					element={<AboutPage />}
-				/>
-				<Route
-					path="login"
-					element={<LoginPage />}
-				/>
-				<Route
-					path="admin"
-					element={
-						<ProtectedPage>
-							<AdminLayout />
-						</ProtectedPage>
-					}
-				>
-					<Route
-						index
-						element={
+const router = createBrowserRouter([
+	{
+		path: '/',
+		Component: MainLayout,
+		children: [
+			{
+				index: true,
+				Component: () => (
+					<LazyComponent>
+						<HomePage />
+					</LazyComponent>
+				),
+			},
+			{
+				path: 'about',
+				Component: () => (
+					<LazyComponent>
+						<AboutPage />
+					</LazyComponent>
+				),
+			},
+			{
+				path: 'login',
+				Component: () => (
+					<LazyComponent>
+						<LoginPage />
+					</LazyComponent>
+				),
+			},
+			{
+				path: 'admin',
+				Component: () => (
+					<ProtectedPage>
+						<AdminLayout />
+					</ProtectedPage>
+				),
+				children: [
+					{
+						index: true,
+						Component: () => (
 							<LazyComponent>
 								<AdminPage />
 							</LazyComponent>
-						}
-					/>
-					<Route
-						path="users"
-						element={
+						),
+					},
+					{
+						path: 'users',
+						Component: () => (
 							<LazyComponent>
 								<UsersPage />
 							</LazyComponent>
-						}
-					/>
-				</Route>
-				<Route
-					path="*"
-					element={<NotFoundPage />}
-				/>
-			</Routes>
-		</BrowserRouter>
-	)
-}
+						),
+					},
+				],
+			},
+			{
+				path: '*',
+				Component: NotFoundPage,
+			},
+		],
+	},
+])
 
 function Root() {
 	return (
@@ -75,7 +85,7 @@ function Root() {
 			{import.meta.env.VITE_MODE !== 'production' ? (
 				<ReactQueryDevtools initialIsOpen={false} />
 			) : null}
-			<Router />
+			<RouterProvider router={router} />
 		</QueryClientProvider>
 	)
 }
