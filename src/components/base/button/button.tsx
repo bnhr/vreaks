@@ -1,8 +1,11 @@
-import { ButtonHTMLAttributes, forwardRef } from 'react'
+import { ButtonHTMLAttributes } from 'react'
 
 type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement>
 
-const Button = forwardRef<HTMLButtonElement, ButtonProps>((props, _ref) => {
+const Button = ({
+	ref: _ref,
+	...props
+}: ButtonProps & { ref?: React.RefObject<HTMLButtonElement | null> }) => {
 	const { children, type = 'button', onClick, ...rest } = props
 	return (
 		<button
@@ -14,7 +17,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>((props, _ref) => {
 			{children}
 		</button>
 	)
-})
+}
 
 Button.displayName = 'Button'
 
