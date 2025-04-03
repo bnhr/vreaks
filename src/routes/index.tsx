@@ -46,34 +46,34 @@ const router = createBrowserRouter([
 				),
 			},
 			{
-				path: 'admin',
-				Component: () => (
-					<ProtectedPage>
-						<AdminLayout />
-					</ProtectedPage>
-				),
-				children: [
-					{
-						index: true,
-						Component: () => (
-							<LazyComponent>
-								<AdminPage />
-							</LazyComponent>
-						),
-					},
-					{
-						path: 'users',
-						Component: () => (
-							<LazyComponent>
-								<UsersPage />
-							</LazyComponent>
-						),
-					},
-				],
-			},
-			{
 				path: '*',
 				Component: NotFoundPage,
+			},
+		],
+	},
+	{
+		path: '/admin',
+		Component: () => (
+			<ProtectedPage>
+				<AdminLayout />
+			</ProtectedPage>
+		),
+		children: [
+			{
+				index: true,
+				Component: () => (
+					<LazyComponent>
+						<AdminPage />
+					</LazyComponent>
+				),
+			},
+			{
+				path: 'users',
+				Component: () => (
+					<LazyComponent>
+						<UsersPage />
+					</LazyComponent>
+				),
 			},
 		],
 	},
