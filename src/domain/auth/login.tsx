@@ -1,5 +1,4 @@
 import { useNavigate } from 'react-router'
-
 import Button from '~/components/base/button/button'
 import { useLoginState } from '~/store/login'
 import { useLoginMutation } from '~/api/auth/login-mutation'
@@ -12,12 +11,10 @@ function LoginPage() {
 
 	function handleClick() {
 		mutate(
-			{ username: 'user0001', password: 'password123' },
+			{ email: 'admin@example.com', password: 'Admin123!' },
 			{
 				onSuccess: (data) => {
-					const res = data
-
-					if (res.status === 'success') {
+					if (data.status === 'success') {
 						login()
 						navigate('/admin')
 					}

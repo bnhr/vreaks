@@ -1,5 +1,5 @@
 import { useUsersQuery } from '~/api/users/users-query'
-import { UsserCard } from './user-card'
+import { UserCard } from './user-card'
 
 export function UsersList() {
 	const { data, error, isLoading } = useUsersQuery()
@@ -14,15 +14,12 @@ export function UsersList() {
 
 	return (
 		<>
-			{data?.data.map((user) => (
+			{data?.data.data?.map((user) => (
 				<div
-					key={user.uuid}
+					key={user.id}
 					className="py-2"
 				>
-					<UsserCard
-						uuid={user.uuid}
-						username={user.username}
-					/>
+					<UserCard user={user} />
 				</div>
 			))}
 		</>

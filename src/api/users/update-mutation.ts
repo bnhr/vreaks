@@ -1,26 +1,17 @@
-import { useMutation } from '@tanstack/react-query'
-import { kyAPI } from '~/api/fetchers/ky'
-import { userApi } from '~/api/fetchers/list'
-import { SuccessResult } from '~/types'
-
-import { UserEdit, Users } from '~/types/users'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
+import { updateUser } from '~/api/services/users-service'
+import { QUERY_CONFIG } from '~/config/api-config'
+import { UserUpdatePayload } from '~/types/users'
 
 export function useUpdateUserMutation() {
-	return useMutation({
-		mutationFn: async (data: UserEdit) => {
-			const { id, payload } = data
-			try {
-				const result = kyAPI
-					.patch(userApi.singleUser(id), {
-						json: payload,
-					})
-					.json<SuccessResult<Partial<Users>>>()
+	const queryClient = useQueryClient()
 
-				return result
-			} catch (error) {
-				console.log('🚀 ~ mutationFn: ~ error:', error)
-				throw error
-			}
+	return useMutation({
+		mutationFn: ({ id, payload }: { id: string; payload: UserUpdatePayload }) =>
+			updateUser(id, payload),
+		retry: QUERY_CONFIG.RETRY,
+		onSuccess: () => {
+			queryClient.invalidateQueries({ queryKey: ['users'] })
 		},
 	})
 }

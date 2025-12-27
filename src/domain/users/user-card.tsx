@@ -1,14 +1,13 @@
 import { useDeleteUserMutation } from '~/api/users/delete-mutation'
 import { useUpdateUserMutation } from '~/api/users/update-mutation'
 import { queryClient } from '~/constant'
-import { UserPayload, Users } from '~/types/users'
+import { User } from '~/types/users'
 
-export function UsserCard({ uuid, username }: Users) {
+export function UserCard({ user }: { user: User }) {
 	const mutation = useDeleteUserMutation()
 	const updateMutation = useUpdateUserMutation()
 
 	const handleDeleteUser = (id: string) => {
-		console.log('id is', id)
 		mutation.mutate(id, {
 			onSuccess: () => {
 				queryClient.invalidateQueries({ queryKey: ['users'] })
@@ -17,38 +16,44 @@ export function UsserCard({ uuid, username }: Users) {
 	}
 
 	const handleUpdateUser = (id: string) => {
-		console.log('id is', id)
-
-		const payload: Partial<UserPayload> = {
-			fullname: 'user edit 01',
-			username: 'user0001',
+		const payload = {
+			first_name: `${user.first_name}_edited`,
 		}
 
-		const data = {
-			id,
-			payload,
-		}
-
-		updateMutation.mutate(data, {
-			onSuccess: () => {
-				queryClient.invalidateQueries({ queryKey: ['users'] })
+		updateMutation.mutate(
+			{ id, payload },
+			{
+				onSuccess: () => {
+					queryClient.invalidateQueries({ queryKey: ['users'] })
+				},
 			},
-		})
+		)
 	}
 
 	return (
 		<div>
-			<p>{username}</p>
+			<p>
+				<strong>Username:</strong> {user.username}
+			</p>
+			<p>
+				<strong>First Name:</strong> {user.first_name}
+			</p>
+			<p>
+				<strong>Email:</strong> {user.email}
+			</p>
+			<p>
+				<strong>Role:</strong> {user.role}
+			</p>
 			<div className="flex items-center gap-2">
 				<button
 					type="button"
-					onClick={() => handleUpdateUser(uuid)}
+					onClick={() => handleUpdateUser(user.id)}
 				>
 					update
 				</button>
 				<button
 					type="button"
-					onClick={() => handleDeleteUser(uuid)}
+					onClick={() => handleDeleteUser(user.id)}
 				>
 					delete
 				</button>

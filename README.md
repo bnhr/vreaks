@@ -81,16 +81,73 @@ rm -rf .git
 
 After installation, you can start developing your SPA project:
 
-1. Run the development server: `bun run dev`
+1. Run development server: `bun run dev`
 2. Open your browser and visit `http://localhost:5173`
 3. Start editing the files in the `src` directory. The changes will be reflected in real-time.
+
+## Mock API Mode
+
+This template includes a mock API mode that allows you to develop and test your application without a backend server. The mock mode uses localStorage to persist data and simulates API calls with optional network delays.
+
+### Using Mock Mode
+
+Mock mode is enabled by default. To use it:
+
+1. Copy `.env.example` to `.env`:
+
+   ```bash
+   cp .env.example .env
+   ```
+
+2. Set the `VITE_USE_MOCK_API` environment variable in your `.env` file:
+
+   ```env
+   VITE_USE_MOCK_API=true  # Use mock API (default)
+   VITE_USE_MOCK_API=false # Use real backend API
+   ```
+
+3. Restart your development server for changes to take effect.
+
+### Mock API Features
+
+- **Type-safe**: Mock API returns the same types as real API
+- **Persistent**: Data is stored in localStorage and persists across page refreshes
+- **Simulated delays**: Optional network delay simulation (300ms by default)
+- **Auth flows**: Login, register, logout, and token refresh
+- **User CRUD**: Full create, read, update, delete operations for users
+- **Role-based**: Admin users see all users, regular users see only their own data
+
+### Mock Data
+
+The mock API initializes with sample data:
+
+- **Admin user**: username: `admin`, any password accepted
+- **Regular user**: username: `user`, any password accepted
+- Additional users for testing
+
+### Resetting Mock Data
+
+To reset mock data to initial state, clear localStorage:
+
+- In browser DevTools: Application → Local Storage → Clear All
+- Or run: `localStorage.clear()` in browser console
+
+### Switching Between Mock and Real API
+
+When switching from mock to real API:
+
+1. Ensure your backend is running at the URL specified by `VITE_BE_URL`
+2. Update `VITE_USE_MOCK_API=false` in your `.env` file
+3. Clear localStorage to remove any mock data
+4. Restart development server
+
+The application will automatically use the real backend API without any code changes needed.
 
 ## Contributions and Discussions
 
 This project is intended as a personal learning and experimentation space, so **I do not accept contributions or pull requests**. However, I'm open to discussions or suggestions regarding the design choices and technical decisions made in this project.
 
 If you have ideas or questions about the project, feel free to open an issue or start a discussion in the repository. Constructive feedback is always appreciated!
-
 
 ## Todo
 

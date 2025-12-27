@@ -1,6 +1,5 @@
 import { useAddUserMutation } from '~/api/users/add-mutation'
 import { queryClient } from '~/constant'
-import { QUERY_KEYS_USERS } from '~/constant/api'
 import { UsersList } from '~/domain/users'
 import { UserPayload } from '~/types/users'
 
@@ -9,17 +8,17 @@ function UserPage() {
 
 	const addNewUser = () => {
 		const payload: UserPayload = {
-			name: 'user0005',
-			fullname: 'user0005',
-			username: 'user0005',
-			email: 'user005@mail.com',
+			username: `user${Date.now()}`,
+			email: `user${Date.now()}@mail.com`,
 			password: 'password123456',
+			first_name: 'First',
+			last_name: 'Last',
 			role: 'user',
 		}
 
 		mutation.mutate(payload, {
 			onSuccess: () => {
-				queryClient.invalidateQueries({ queryKey: QUERY_KEYS_USERS })
+				queryClient.invalidateQueries({ queryKey: ['users'] })
 			},
 		})
 	}

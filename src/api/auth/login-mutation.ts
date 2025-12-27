@@ -1,29 +1,10 @@
 import { useMutation } from '@tanstack/react-query'
-
-import { kyAPI } from '~/api/fetchers/ky'
-import { authApi } from '~/api/fetchers/list'
-
-import { LoginData } from '~/types/auth'
-
-interface LoginPayload {
-	username: string
-	password: string
-}
+import { login } from '~/api/services/auth-service'
+import { QUERY_CONFIG } from '~/config/api-config'
 
 export function useLoginMutation() {
 	return useMutation({
-		mutationFn: async (payload: LoginPayload) => {
-			try {
-				const result = await kyAPI
-					.post(authApi.login, {
-						json: payload,
-					})
-					.json<LoginData>()
-				return result
-			} catch (error) {
-				console.log('🚀 ~ mutationFn: ~ error:', error)
-				throw error
-			}
-		},
+		mutationFn: login,
+		retry: QUERY_CONFIG.RETRY,
 	})
 }
