@@ -37,6 +37,12 @@ export default tseslint.config(
 				'warn',
 				{ allowConstantExport: true },
 			],
+			'no-restricted-imports': ['error', {
+				patterns: [{
+					group: ['~/features/*/*', '~/features/*/*/*'],
+					message: 'Import from feature public API (~/features/*) instead of deep imports'
+				}]
+			}],
 		},
 	},
 )

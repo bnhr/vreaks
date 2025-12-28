@@ -5,9 +5,9 @@ import type {
 	RegisterResponse,
 	MeResponse,
 	RefreshResponse,
-} from '~/features/auth/types/auth.types'
+} from '~/features/auth'
 import type { ApiError } from '~/shared/api/types'
-import type { User } from '~/features/users/types/user.types'
+import type { User } from '~/features/users'
 
 interface LoginPayload {
 	email: string

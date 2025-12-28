@@ -6,7 +6,7 @@ import type {
 	UserPayload,
 	UserUpdatePayload,
 	User,
-} from '~/features/users/types/user.types'
+} from '~/features/users'
 import type { ApiError } from '~/shared/api/types'
 
 async function delay() {
