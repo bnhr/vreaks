@@ -1,155 +1,110 @@
 # VREAKS
 
-> An opinionated React and Vite template for accelerating modern Single Page Application (SPA) development
+> An opinionated React starter with Vite and Bun for modern SPA development
 
-VREAKS is a carefully curated template that combines the power of Vite and React with a selection of essential technologies to jumpstart your next Single Page Application (SPA) project. It aims to provide a solid foundation with best practices and optimal configurations out of the box, specifically tailored for client-side rendered applications.
+A production-ready React template with best practices baked in. Built for speed with Vite and Bun, featuring a clean architecture and modern state management.
 
 ## Features
 
-- Lightning-fast development with Vite
-- Modern React setup with TypeScript support for SPAs
-- Pre-configured styling with Tailwind CSS
-- Efficient client-side state management using Zustand
-- Optimized data fetching with Tanstack Query
-- Consistent code style enforced by ESLint and Prettier
-- Focus on Single Page Application (SPA) architecture
+- ⚡ Lightning-fast with Vite + Bun
+- 🎯 TypeScript strict mode
+- 🎨 Tailwind CSS v4
+- 🔄 TanStack Query for server state
+- 🐻 Zustand for client state
+- 🧪 Vitest + Testing Library
+- 📁 Feature-based architecture
+- 🎭 Mock API mode for development
+- 🔒 Auth flow included
+- ✨ ESLint + Prettier configured
 
-## Getting Started
+## Quick Start
 
-### Prerequisites
-
-- Node.js (version 22 or later)
-- Bun, PNPM, NPM, or Yarn
-
-### Installation
-
-Choose your preferred package manager:
-
-#### Using Bun (recommended)
+**Prerequisites:** Bun installed ([get it here](https://bun.sh))
 
 ```bash
 git clone https://github.com/bnhr/vreaks.git your-project-name
 cd your-project-name
 bun install
+cp .env.example .env
 bun run dev
 ```
 
-#### Using PNPM
-
-```bash
-git clone https://github.com/bnhr/vreaks.git your-project-name
-cd your-project-name
-pnpm install
-pnpm run dev
-```
-
-#### Using NPM
-
-```bash
-git clone https://github.com/bnhr/vreaks.git your-project-name
-cd your-project-name
-npm install
-npm run dev
-```
-
-#### Using Yarn
-
-```bash
-git clone https://github.com/bnhr/vreaks.git your-project-name
-cd your-project-name
-yarn
-yarn dev
-```
-
-After installation, make sure to remove the Git history to start fresh:
+Remove git history to start fresh:
 
 ```bash
 rm -rf .git
+git init
 ```
 
-## Essential Technologies
+## Project Structure
 
-- **React**: The latest version of React for building user interfaces, offering improved performance and new features for SPAs.
-- **TypeScript**: Adds static typing to JavaScript, enhancing code quality and developer productivity in large-scale SPA projects.
-- **Tailwind CSS**: A utility-first CSS framework for rapid UI development without conflicting styles, perfect for component-based SPA architectures.
-- **Prettier with Tailwind Plugin**: Ensures consistent code formatting, including proper Tailwind class sorting.
-- **ESLint**: Identifies and fixes code quality issues, using the new ESLint flat config for improved performance.
-- **Zustand**: A minimal state management solution that simplifies complex state logic in SPAs.
-- **Tanstack Query**: Powerful data synchronization for React, optimizing client-side data fetching and caching in SPAs.
+```
+src/
+├── app/           # App configuration, providers, routes
+├── features/      # Feature modules (auth, users, etc.)
+│   └── auth/      # Example: authentication feature
+│       ├── api/   # API calls and React Query hooks
+│       ├── components/
+│       ├── hooks/
+│       └── types/
+├── pages/         # Page components
+├── shared/        # Shared utilities, components, hooks
+│   ├── api/       # API client and configuration
+│   ├── components/
+│   ├── hooks/
+│   └── lib/
+├── widgets/       # Complex reusable UI components
+├── mock/          # Mock API for development
+└── test/          # Test setup and utilities
+```
 
-## Development
+## State Management Philosophy
 
-After installation, you can start developing your SPA project:
+**Three-tier approach:**
 
-1. Run development server: `bun run dev`
-2. Open your browser and visit `http://localhost:5173`
-3. Start editing the files in the `src` directory. The changes will be reflected in real-time.
+1. **Server State** → TanStack Query (user data, API calls)
+2. **Client State** → Zustand (theme, UI state, preferences)
+3. **Local State** → useState (component-specific)
 
-## Mock API Mode
+**No React Context.** We use Zustand for global client state and React Query for server state.
 
-This template includes a mock API mode that allows you to develop and test your application without a backend server. The mock mode uses localStorage to persist data and simulates API calls with optional network delays.
+## Commands
 
-### Using Mock Mode
+```bash
+bun run dev      # Start dev server
+bun run build    # Build for production
+bun run preview  # Preview production build
+bun run lint     # Lint code
+bun run format   # Format code
+bun test         # Run tests
+```
 
-Mock mode is enabled by default. To use it:
+## Mock API
 
-1. Copy `.env.example` to `.env`:
+Develop without a backend. Mock API uses localStorage and simulates network delays.
 
-   ```bash
-   cp .env.example .env
-   ```
+**Default credentials:**
+- Admin: `admin` / any password
+- User: `user` / any password
 
-2. Set the `VITE_USE_MOCK_API` environment variable in your `.env` file:
+**Toggle in `.env`:**
+```env
+VITE_USE_MOCK_API=true   # Mock mode (default)
+VITE_USE_MOCK_API=false  # Real backend
+```
 
-   ```env
-   VITE_USE_MOCK_API=true  # Use mock API (default)
-   VITE_USE_MOCK_API=false # Use real backend API
-   ```
+**Reset data:** Clear localStorage in DevTools or run `localStorage.clear()`
 
-3. Restart your development server for changes to take effect.
+## Best Practices
 
-### Mock API Features
+- **Naming:** Use kebab-case for files and folders
+- **Components:** Functional components with TypeScript
+- **Testing:** Test user behavior, not implementation
+- **No `any`:** Use `unknown` if type is unclear
+- **Commits:** Use conventional commits (`feat:`, `fix:`, etc.)
 
-- **Type-safe**: Mock API returns the same types as real API
-- **Persistent**: Data is stored in localStorage and persists across page refreshes
-- **Simulated delays**: Optional network delay simulation (300ms by default)
-- **Auth flows**: Login, register, logout, and token refresh
-- **User CRUD**: Full create, read, update, delete operations for users
-- **Role-based**: Admin users see all users, regular users see only their own data
+See [AGENTS.md](./AGENTS.md) for detailed guidelines.
 
-### Mock Data
+## Contributing
 
-The mock API initializes with sample data:
-
-- **Admin user**: username: `admin`, any password accepted
-- **Regular user**: username: `user`, any password accepted
-- Additional users for testing
-
-### Resetting Mock Data
-
-To reset mock data to initial state, clear localStorage:
-
-- In browser DevTools: Application → Local Storage → Clear All
-- Or run: `localStorage.clear()` in browser console
-
-### Switching Between Mock and Real API
-
-When switching from mock to real API:
-
-1. Ensure your backend is running at the URL specified by `VITE_BE_URL`
-2. Update `VITE_USE_MOCK_API=false` in your `.env` file
-3. Clear localStorage to remove any mock data
-4. Restart development server
-
-The application will automatically use the real backend API without any code changes needed.
-
-## Contributions and Discussions
-
-This project is intended as a personal learning and experimentation space, so **I do not accept contributions or pull requests**. However, I'm open to discussions or suggestions regarding the design choices and technical decisions made in this project.
-
-If you have ideas or questions about the project, feel free to open an issue or start a discussion in the repository. Constructive feedback is always appreciated!
-
-## Todo
-
-- [ ] Implement headless components as a design system using Radix UI or React Aria Components for customizable, accessible UI elements in SPAs.
-- [ ] Migrate to Biome for faster linting and formatting once it's stable.
+This is a personal template, but discussions and suggestions are welcome. Open an issue to share ideas or feedback.

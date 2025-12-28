@@ -22,7 +22,13 @@
 
 		"baseUrl": ".",
 		"paths": {
-			"~/*": ["src/*"]
+			"~/*": ["src/*"],
+			"~/app/*": ["src/app/*"],
+			"~/features/*": ["src/features/*"],
+			"~/pages/*": ["src/pages/*"],
+			"~/widgets/*": ["src/widgets/*"],
+			"~/shared/*": ["src/shared/*"],
+			"~/mock/*": ["src/mock/*"]
 		}
   },
   "include": ["src"]
