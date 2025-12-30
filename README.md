@@ -11,7 +11,7 @@ A production-ready React template with best practices baked in. Built for speed 
 - 🎨 Tailwind CSS v4
 - 🔄 TanStack Query for server state
 - 🐻 Zustand for client state
-- 🧪 Vitest + Testing Library
+- 🧪 Vitest + Testing Library + Playwright
 - 📁 Feature-based architecture
 - 🎭 Mock API mode for development
 - 🔒 Auth flow included
@@ -71,12 +71,13 @@ src/
 ## Commands
 
 ```bash
-bun run dev      # Start dev server
-bun run build    # Build for production
-bun run preview  # Preview production build
-bun run lint     # Lint code
-bun run format   # Format code
-bun test         # Run tests
+bun run dev        # Start dev server
+bun run build      # Build for production
+bun run preview    # Preview production build
+bun run lint       # Lint code
+bun run format     # Format code
+bun run test       # Run all tests (unit + component)
+bun run test:e2e   # Run E2E tests with Playwright
 ```
 
 ## Mock API
@@ -95,6 +96,33 @@ VITE_USE_MOCK_API=false  # Real backend
 
 **Reset data:** Clear localStorage in DevTools or run `localStorage.clear()`
 
+## Documentation
+
+- [Testing Guide](./docs/testing.md) - Complete testing documentation
+- [Agent Guidelines](./docs/agents.md) - Guidelines for AI agents
+- [CI/CD Setup](./docs/ci-cd.md) - CI/CD configuration guide
+
+## Testing
+
+This project uses a modern three-tier testing approach with real browser testing:
+
+- **Unit Tests** - Fast tests for pure functions (Vitest + Node.js)
+- **Component Tests** - React components in real browsers (Vitest Browser Mode)
+- **E2E Tests** - Complete user flows (Playwright)
+
+```bash
+# Run all tests
+bun run test
+
+# Run E2E tests
+bun run test:e2e
+
+# Run with coverage
+bun run test --coverage
+```
+
+See [Testing Documentation](./docs/testing.md) for more details.
+
 ## Best Practices
 
 - **Naming:** Use kebab-case for files and folders
@@ -103,8 +131,12 @@ VITE_USE_MOCK_API=false  # Real backend
 - **No `any`:** Use `unknown` if type is unclear
 - **Commits:** Use conventional commits (`feat:`, `fix:`, etc.)
 
-See [AGENTS.md](./AGENTS.md) for detailed guidelines.
+See [Agent Guidelines](./docs/agents.md) for detailed best practices.
 
 ## Contributing
 
 This is a personal template, but discussions and suggestions are welcome. Open an issue to share ideas or feedback.
+
+## License
+
+MIT

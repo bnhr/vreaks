@@ -1,0 +1,3 @@
+[test]
+# Configure path aliases for Bun test runner
+preload = ["./src/test/setup.ts"]

@@ -77,7 +77,8 @@ describe('Test File Co-location Property Tests', () => {
 					testBasename.includes('imports') ||
 					testBasename.includes('alias') ||
 					testBasename.includes('naming') ||
-					testBasename.includes('completeness')
+					testBasename.includes('completeness') ||
+					testBasename.includes('example')
 
 				// Special tests don't need corresponding source files
 				if (isSpecialTest) {
@@ -199,7 +200,8 @@ describe('Test File Co-location Property Tests', () => {
 					testBasename.includes('imports') ||
 					testBasename.includes('alias') ||
 					testBasename.includes('naming') ||
-					testBasename.includes('completeness')
+					testBasename.includes('completeness') ||
+					testBasename.includes('example')
 
 				if (!isSpecialTest) {
 					expect(

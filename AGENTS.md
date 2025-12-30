@@ -1,87 +1,109 @@
 # Agent Guidelines
 
-This document provides guidelines for AI agents working on this frontend project.
+**Tech Stack:** React 19 + TypeScript + Bun + React Router 7 + Tailwind v4 + TanStack Query + Zustand + ky + Vitest
 
-## Package Manager
+**Commands:** `bun install` | `bun run dev` | `bun run test` (NOT `bun test`) | `bun run build`
 
-**Always use Bun instead of Node.js, npm, pnpm, or yarn.**
+**Path Alias:** `~` → `src/`
 
-- `bun install` - Install dependencies
-- `bun run <script>` - Run package.json scripts
-- `bun <file>` - Execute TypeScript/JavaScript files directly
-- `bun test` - Run tests
-- `bun build` - Build the project
+## Core Rules
 
-Bun automatically loads `.env` files, so no need for dotenv packages.
+**Package Manager:** Always use Bun (not npm/yarn/pnpm). Bun auto-loads `.env` files.
 
-## File and Folder Naming
+**Naming:** kebab-case for all files/folders (`user-profile.tsx`, not `UserProfile.tsx`)
 
-**Use kebab-case for all files and folders.**
+## State Management (Critical)
 
-- ✅ `user-profile.tsx`, `api-client.ts`, `auth-provider/`
-- ❌ `UserProfile.tsx`, `apiClient.ts`, `AuthProvider/`
+1. **TanStack Query** - ALL API data (users, posts, auth from `/me`)
+2. **Zustand** - UI state (theme, modals, preferences)
+3. **useState** - Local component state
 
-Exception: Component files may use PascalCase if preferred by the team, but kebab-case is recommended for consistency.
+**❌ NEVER:** Use Context for state | Duplicate API data in Zustand
 
-## React Best Practices
+## TypeScript
 
-### Component Structure
+- Strict mode enabled, avoid `any`
+- PascalCase: types/interfaces | camelCase: variables/functions | UPPER_SNAKE_CASE: constants
 
-- Use functional components with hooks
-- Keep components small and focused on a single responsibility
-- Extract reusable logic into custom hooks
-- Use proper TypeScript types for props
+## Testing
 
-```tsx
-interface UserCardProps {
-  name: string;
-  email: string;
-  onEdit?: () => void;
-}
+**CRITICAL:** Use `bun run test` (NOT `bun test` - breaks Vitest config)
 
-export function UserCard({ name, email, onEdit }: UserCardProps) {
-  return (
-    <div>
-      <h2>{name}</h2>
-      <p>{email}</p>
-      {onEdit && <button onClick={onEdit}>Edit</button>}
-    </div>
-  );
-}
-```
+- Use `renderWithProviders` from `~/test` for components
+- Test user behavior, not implementation
+- Arrange-Act-Assert pattern
 
-### State Management
+## Styling
 
-**We use a three-tier state management approach:**
+- Tailwind v4 utility classes
+- Use `cn()` from `~/shared/utils/cn` for conditional classes (merges + resolves conflicts)
 
-1. **Server State → TanStack Query (React Query)**
-   - ALL data from APIs (user data, posts, etc.)
-   - Authentication state (derive from `/me` endpoint)
-   - Automatic caching, refetching, and synchronization
-   - Built-in loading and error states
+## API Pattern
 
-2. **Client State → Zustand**
-   - UI state (theme, sidebar open/closed, modals)
-   - Client-only preferences (language, notifications)
-   - Multi-step form data
-   - Shopping carts or temporary collections
-   - Global notifications/toasts
+**Client:** ky + TanStack Query (auto token refresh, retry logic in `~/shared/api/client.ts`)
 
-3. **Local State → useState/useReducer**
-   - Component-specific state
-   - Form inputs (single-page forms)
-   - Toggle states within a component
-   - Use `useReducer` for complex local state logic
+**Structure:** `features/users/api/use-users-query.ts` → Check `USE_MOCK_API` → Return mock or real data
 
-**NEVER use React Context for state management.** Context causes unnecessary re-renders and adds boilerplate. Use Zustand instead.
+**Always handle:** `isLoading`, `isError` states in components
 
-**NEVER duplicate server data in Zustand.** If it comes from an API, it belongs in React Query.
+## Forms
 
-**Examples:**
+- Simple: `useState`
+- Complex: React Hook Form (if installed)
+
+## Environment
+
+- `VITE_*` prefix for client-side vars (exposed to browser)
+- Bun auto-loads `.env` (no dotenv needed)
+
+## Import Order Convention
+
+Keep imports organized for consistency:
 
 ```typescript
-// ✅ CORRECT: Server state with React Query
-export function useAuth() {
+// 1. External libraries (React, third-party packages)
+import { useState, useEffect } from 'react'
+import { useQuery } from '@tanstack/react-query'
+
+// 2. Internal modules with path alias (~)
+import { apiClient } from '~/shared/api/client'
+import { useAuth } from '~/features/auth/hooks/use-auth'
+import { Button } from '~/shared/components/button'
+
+// 3. Relative imports
+import { UserCard } from './user-card'
+import { formatDate } from './utils'
+
+// 4. Types (can be mixed with above or separated)
+import type { User } from '~/features/users/types/user.types'
+import type { ApiResponse } from './types'
+```
+
+## Custom Hooks Guidelines
+
+### When to Create Custom Hooks
+
+**DO create a custom hook when:**
+- Logic is reused across multiple components
+- Logic involves multiple useState/useEffect calls
+- Logic encapsulates a specific domain concern (auth, form validation, etc.)
+- Logic involves complex state management or side effects
+
+```tsx
+// ✅ GOOD: Reusable logic
+function useDebounce<T>(value: T, delay: number): T {
+  const [debouncedValue, setDebouncedValue] = useState(value)
+
+  useEffect(() => {
+    const handler = setTimeout(() => setDebouncedValue(value), delay)
+    return () => clearTimeout(handler)
+  }, [value, delay])
+
+  return debouncedValue
+}
+
+// ✅ GOOD: Domain-specific logic
+function useAuth() {
   const { data: currentUser, isLoading } = useMeQuery()
   return {
     user: currentUser?.data,
@@ -89,133 +111,159 @@ export function useAuth() {
     isLoading,
   }
 }
-
-// ✅ CORRECT: Client state with Zustand
-export const useUIStore = create<UIState>((set) => ({
-  sidebarOpen: true,
-  theme: 'light',
-  toggleSidebar: () => set((state) => ({ sidebarOpen: !state.sidebarOpen })),
-  setTheme: (theme) => set({ theme }),
-}))
-
-// ✅ CORRECT: Local state with useState
-function SearchInput() {
-  const [query, setQuery] = useState('')
-  return <input value={query} onChange={(e) => setQuery(e.target.value)} />
-}
-
-// ❌ WRONG: Don't use Context
-const ThemeContext = createContext() // NO!
-
-// ❌ WRONG: Don't duplicate server data in Zustand
-const useAuthStore = create((set) => ({
-  user: null, // This should be in React Query!
-  setUser: (user) => set({ user }),
-}))
 ```
 
-### Performance
+**DON'T create a custom hook when:**
+- It's just a single useState call
+- Logic is only used once
+- It's just wrapping a library hook without adding value
 
-- Use `React.memo()` for expensive components
-- Use `useMemo()` and `useCallback()` to prevent unnecessary re-renders
-- Lazy load routes and heavy components with `React.lazy()`
-- Avoid inline function definitions in JSX when possible
-
-## TypeScript Best Practices
-
-### Type Safety
-
-- Enable strict mode in `tsconfig.json`
-- Avoid `any` - use `unknown` if type is truly unknown
-- Define interfaces for all props, API responses, and data structures
-- Use type guards for runtime type checking
-
-```typescript
-interface ApiResponse<T> {
-  data: T;
-  error?: string;
-  status: number;
+```tsx
+// ❌ BAD: Unnecessary abstraction
+function useCounter() {
+  return useState(0)
 }
 
-function isError(response: ApiResponse<unknown>): response is ApiResponse<never> {
-  return response.error !== undefined;
+// ✅ GOOD: Just use useState directly
+function Counter() {
+  const [count, setCount] = useState(0)
+  return <button onClick={() => setCount(count + 1)}>{count}</button>
 }
 ```
 
-### Naming Conventions
+## Component Composition Patterns
 
-- Use PascalCase for types and interfaces: `UserProfile`, `ApiResponse`
-- Use camelCase for variables and functions: `getUserData`, `isLoading`
-- Use UPPER_SNAKE_CASE for constants: `API_BASE_URL`, `MAX_RETRIES`
-- Prefix interfaces with `I` only if it adds clarity (generally avoid)
+### Compound Components
 
-## Vite Configuration
+For components with multiple related parts:
 
-- Keep `vite.config.ts` minimal and focused
-- Use environment variables for configuration
-- Configure path aliases for cleaner imports
-- Enable source maps for development
+```tsx
+interface TabsContextValue {
+  activeTab: string
+  setActiveTab: (tab: string) => void
+}
 
-```typescript
-import { defineConfig } from 'vite';
-import react from '@vitejs/plugin-react';
-import path from 'path';
+const TabsContext = createContext<TabsContextValue | null>(null)
 
-export default defineConfig({
-  plugins: [react()],
-  resolve: {
-    alias: {
-      '@': path.resolve(__dirname, './src'),
-    },
-  },
-});
+function Tabs({ children, defaultTab }: { children: React.ReactNode; defaultTab: string }) {
+  const [activeTab, setActiveTab] = useState(defaultTab)
+  return (
+    <TabsContext.Provider value={{ activeTab, setActiveTab }}>
+      <div className="tabs">{children}</div>
+    </TabsContext.Provider>
+  )
+}
+
+function TabList({ children }: { children: React.ReactNode }) {
+  return <div className="flex gap-2 border-b">{children}</div>
+}
+
+function Tab({ value, children }: { value: string; children: React.ReactNode }) {
+  const context = useContext(TabsContext)
+  if (!context) throw new Error('Tab must be used within Tabs')
+  
+  return (
+    <button
+      className={cn('px-4 py-2', context.activeTab === value && 'border-b-2 border-blue-600')}
+      onClick={() => context.setActiveTab(value)}
+    >
+      {children}
+    </button>
+  )
+}
+
+function TabPanel({ value, children }: { value: string; children: React.ReactNode }) {
+  const context = useContext(TabsContext)
+  if (!context) throw new Error('TabPanel must be used within Tabs')
+  
+  return context.activeTab === value ? <div>{children}</div> : null
+}
+
+// Usage
+<Tabs defaultTab="profile">
+  <TabList>
+    <Tab value="profile">Profile</Tab>
+    <Tab value="settings">Settings</Tab>
+  </TabList>
+  <TabPanel value="profile">Profile content</TabPanel>
+  <TabPanel value="settings">Settings content</TabPanel>
+</Tabs>
 ```
 
-## Testing Best Practices
+### Render Props (use sparingly)
 
-### Test Structure
+```tsx
+interface DataFetcherProps<T> {
+  url: string
+  children: (data: T | null, isLoading: boolean) => React.ReactNode
+}
 
-- Use `bun test` for running tests
-- Follow the Arrange-Act-Assert pattern
-- Write descriptive test names that explain the expected behavior
-- Test user behavior, not implementation details
+function DataFetcher<T>({ url, children }: DataFetcherProps<T>) {
+  const { data, isLoading } = useQuery({
+    queryKey: [url],
+    queryFn: () => apiClient.get(url).json<T>(),
+  })
 
-```typescript
-import { test, expect, describe } from 'bun:test';
-import { render, screen } from '@testing-library/react';
-import { UserCard } from './user-card';
+  return <>{children(data ?? null, isLoading)}</>
+}
 
-describe('UserCard', () => {
-  test('displays user name and email', () => {
-    render(<UserCard name="John Doe" email="john@example.com" />);
-    
-    expect(screen.getByText('John Doe')).toBeInTheDocument();
-    expect(screen.getByText('john@example.com')).toBeInTheDocument();
-  });
-
-  test('calls onEdit when edit button is clicked', () => {
-    const onEdit = jest.fn();
-    render(<UserCard name="John" email="john@example.com" onEdit={onEdit} />);
-    
-    screen.getByText('Edit').click();
-    expect(onEdit).toHaveBeenCalledTimes(1);
-  });
-});
+// Usage
+<DataFetcher<User> url="/api/users/1">
+  {(user, isLoading) => (
+    isLoading ? <Spinner /> : <UserCard user={user} />
+  )}
+</DataFetcher>
 ```
 
-### What to Test
+## When to Split Components
 
-- Component rendering with different props
-- User interactions (clicks, form submissions)
-- Conditional rendering logic
-- Custom hooks behavior
-- API integration (with mocks)
+### DO split when:
+- Component exceeds ~150 lines
+- Component has multiple distinct responsibilities
+- Part of the component is reusable elsewhere
+- Component has complex conditional rendering
 
-### What Not to Test
+```tsx
+// ❌ BAD: Too much in one component
+function UserDashboard() {
+  return (
+    <div>
+      <header>{/* 50 lines of header code */}</header>
+      <aside>{/* 50 lines of sidebar code */}</aside>
+      <main>{/* 100 lines of main content */}</main>
+      <footer>{/* 30 lines of footer code */}</footer>
+    </div>
+  )
+}
 
-- Third-party library internals
-- Trivial code (simple getters/setters)
-- Implementation details (internal state, private methods)
+// ✅ GOOD: Split into focused components
+function UserDashboard() {
+  return (
+    <div>
+      <DashboardHeader />
+      <DashboardSidebar />
+      <DashboardContent />
+      <DashboardFooter />
+    </div>
+  )
+}
+```
+
+### DON'T split when:
+- Component is small and focused (<50 lines)
+- Split would create unnecessary prop drilling
+- Components are tightly coupled and not reusable
+
+## Mocks
+
+When `VITE_USE_MOCK_API=true`, API functions check and return mock data from `~/mock/handlers/`
+
+## Anti-Patterns
+
+❌ Don't fetch in useEffect (use React Query)
+❌ Don't duplicate API data in Zustand
+❌ Don't use Context for state
+❌ Don't ignore loading/error states
 
 ## Project Structure
 
@@ -225,72 +273,29 @@ Follow a feature-based structure:
 src/
 ├── app/           # App-level configuration, providers
 ├── features/      # Feature modules (auth, users, etc.)
+│   └── users/
+│       ├── api/           # React Query hooks
+│       ├── components/    # Feature-specific components
+│       ├── hooks/         # Feature-specific hooks
+│       ├── types/         # TypeScript types
+│       └── utils/         # Feature-specific utilities
 ├── pages/         # Page components
 ├── shared/        # Shared utilities, components, hooks
+│   ├── api/           # API client, endpoints, config
+│   ├── components/    # Reusable UI components
+│   ├── hooks/         # Reusable hooks
+│   ├── utils/         # Utility functions
+│   └── config/        # App configuration
 ├── widgets/       # Complex reusable UI components
 ├── assets/        # Static assets (images, fonts)
+├── mock/          # Mock API handlers
 └── test/          # Test utilities and setup
 ```
 
-## Code Quality
+## Best Practices
 
-### Formatting and Linting
-
-- Use Prettier for consistent formatting
-- Use ESLint for code quality
-- Run linters before commits (husky + lint-staged)
-- Fix all warnings before committing
-
-### Code Review Checklist
-
-- [ ] Code follows naming conventions
-- [ ] TypeScript types are properly defined
-- [ ] Components are properly tested
-- [ ] No console.log statements in production code
-- [ ] Error handling is implemented
-- [ ] Loading and error states are handled
-- [ ] Accessibility attributes are present (aria-labels, roles)
-- [ ] Code is DRY (Don't Repeat Yourself)
-
-## Git Workflow
-
-- Use conventional commits: `feat:`, `fix:`, `docs:`, `refactor:`, `test:`
-- Keep commits atomic and focused
-- Write clear commit messages
-- Create feature branches from main
-- Squash commits before merging
-
-## Performance Optimization
-
-- Code split routes and heavy components
-- Optimize images (use WebP, lazy loading)
-- Minimize bundle size (analyze with `bun build --analyze`)
-- Use production builds for deployment
-- Implement proper caching strategies
-- Avoid unnecessary re-renders
-
-## Accessibility
-
-- Use semantic HTML elements
-- Add proper ARIA labels and roles
-- Ensure keyboard navigation works
-- Test with screen readers
-- Maintain proper color contrast
-- Support reduced motion preferences
-
-## Security
-
-- Sanitize user input
-- Use environment variables for sensitive data
-- Implement proper authentication and authorization
-- Validate data on both client and server
-- Keep dependencies updated
-- Use HTTPS in production
-
-## Documentation
-
-- Document complex logic with comments
-- Keep README.md up to date
-- Document API endpoints and data structures
-- Add JSDoc comments for public functions
-- Maintain a CHANGELOG for releases
+- Prettier + ESLint (husky + lint-staged)
+- Conventional commits (`feat:`, `fix:`, `docs:`)
+- Code split routes, lazy load heavy components
+- Semantic HTML + ARIA labels
+- Sanitize input, validate data, use HTTPS

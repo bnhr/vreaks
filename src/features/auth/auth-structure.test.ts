@@ -63,8 +63,8 @@ describe('Auth Feature Structure Property Tests', () => {
 	})
 
 	it('should export public API from index.ts', async () => {
-		// Import the auth feature module
-		const authModule = await import('~/features/auth')
+		// Import the auth feature module using relative path
+		const authModule = await import('./index.js')
 
 		// Verify that the module exports something (public API exists)
 		expect(Object.keys(authModule).length).toBeGreaterThan(0)

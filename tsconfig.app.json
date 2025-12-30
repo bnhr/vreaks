@@ -28,7 +28,8 @@
 			"~/pages/*": ["src/pages/*"],
 			"~/widgets/*": ["src/widgets/*"],
 			"~/shared/*": ["src/shared/*"],
-			"~/mock/*": ["src/mock/*"]
+			"~/mock/*": ["src/mock/*"],
+			"~/test": ["src/test"]
 		}
   },
   "include": ["src"]
