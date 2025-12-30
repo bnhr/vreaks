@@ -254,6 +254,32 @@ function UserDashboard() {
 - Split would create unnecessary prop drilling
 - Components are tightly coupled and not reusable
 
+## Routing
+
+**Current Approach:** Declarative Mode with React Router 7 + TanStack Query
+
+- Routes use `Component` property
+- Data fetching with TanStack Query in components
+- Simple, straightforward pattern
+
+**Scaling Option:** Data Mode (Hybrid Approach)
+
+When your app grows and needs more structure, consider the hybrid approach:
+- React Router loaders for data pre-fetching
+- TanStack Query for caching + background refetch
+- Actions for form handling
+- Middleware for auth/logging
+
+**Templates available:** `templates/data-mode/` contains ready-to-use examples
+
+**When to consider:**
+- Form-heavy features (actions simplify mutations)
+- Route-level auth (middleware is cleaner)
+- Performance issues (parallel loaders)
+- Team wants more structure
+
+**Documentation:** See `docs/data-mode-rr.md` for full migration guide
+
 ## Mocks
 
 When `VITE_USE_MOCK_API=true`, API functions check and return mock data from `~/mock/handlers/`
