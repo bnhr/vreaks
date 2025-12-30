@@ -99,7 +99,7 @@ VITE_USE_MOCK_API=false  # Real backend
 ## Documentation
 
 - [Testing Guide](./docs/testing.md) - Complete testing documentation
-- [Agent Guidelines](./docs/agents.md) - Guidelines for AI agents
+- [Agent Guidelines](./AGENTS.md) - Guidelines for AI agents
 - [CI/CD Setup](./docs/ci-cd.md) - CI/CD configuration guide
 
 ## Testing
@@ -131,7 +131,7 @@ See [Testing Documentation](./docs/testing.md) for more details.
 - **No `any`:** Use `unknown` if type is unclear
 - **Commits:** Use conventional commits (`feat:`, `fix:`, etc.)
 
-See [Agent Guidelines](./docs/agents.md) for detailed best practices.
+See [Agent Guidelines](./AGENTS.md) for detailed best practices.
 
 ## Contributing
 
