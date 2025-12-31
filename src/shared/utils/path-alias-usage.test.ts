@@ -81,13 +81,7 @@ describe('Path Alias Usage Property Tests', () => {
 		const toTopLevel = toRelative.split('/')[0]
 
 		// Check if crossing top-level boundaries (app, features, pages, widgets, shared)
-		const topLevelDirs = [
-			'app',
-			'features',
-			'pages',
-			'widgets',
-			'shared',
-		]
+		const topLevelDirs = ['app', 'features', 'pages', 'widgets', 'shared']
 
 		if (
 			topLevelDirs.includes(fromTopLevel) &&
