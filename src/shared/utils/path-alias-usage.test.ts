@@ -80,14 +80,13 @@ describe('Path Alias Usage Property Tests', () => {
 		const fromTopLevel = fromRelative.split('/')[0]
 		const toTopLevel = toRelative.split('/')[0]
 
-		// Check if crossing top-level boundaries (app, features, pages, widgets, shared, mock)
+		// Check if crossing top-level boundaries (app, features, pages, widgets, shared)
 		const topLevelDirs = [
 			'app',
 			'features',
 			'pages',
 			'widgets',
 			'shared',
-			'mock',
 		]
 
 		if (
@@ -201,7 +200,6 @@ describe('Path Alias Usage Property Tests', () => {
 			'~/pages/*',
 			'~/widgets/*',
 			'~/shared/*',
-			'~/mock/*',
 		]
 
 		// Read tsconfig.app.json

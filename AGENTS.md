@@ -42,7 +42,7 @@
 
 **Client:** ky + TanStack Query (auto token refresh, retry logic in `~/shared/api/client.ts`)
 
-**Structure:** `features/users/api/use-users-query.ts` → Check `USE_MOCK_API` → Return mock or real data
+**Structure:** `features/users/api/use-users-query.ts` → API calls via `apiClient`
 
 **Always handle:** `isLoading`, `isError` states in components
 
@@ -280,10 +280,6 @@ When your app grows and needs more structure, consider the hybrid approach:
 
 **Documentation:** See `docs/data-mode-rr.md` for full migration guide
 
-## Mocks
-
-When `VITE_USE_MOCK_API=true`, API functions check and return mock data from `~/mock/handlers/`
-
 ## Anti-Patterns
 
 ❌ Don't fetch in useEffect (use React Query)
@@ -314,7 +310,6 @@ src/
 │   └── config/        # App configuration
 ├── widgets/       # Complex reusable UI components
 ├── assets/        # Static assets (images, fonts)
-├── mock/          # Mock API handlers
 └── test/          # Test utilities and setup
 ```
 

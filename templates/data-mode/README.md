@@ -32,7 +32,6 @@ For simple apps, the current Declarative Mode + TanStack Query is sufficient.
 Defines reusable query configurations using `queryOptions()`:
 - Works with both loaders and `useQuery`
 - Single source of truth for query config
-- Mock API logic in one place
 - Type-safe query keys and data
 
 **To use:** Copy content to `features/[feature-name]/api/[feature]-queries.ts`
@@ -259,7 +258,6 @@ const router = createBrowserRouter([
 3. **Decide on await** - Choose whether to wait for refetch or redirect immediately
 4. **Error boundaries** - Add errorElement to routes with loaders
 5. **Type safety** - Use TypeScript for loader/action types
-6. **Mock API** - Keep mock logic in query definitions
 
 ## Common Patterns
 

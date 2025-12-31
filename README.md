@@ -13,7 +13,6 @@ A production-ready React template with best practices baked in. Built for speed 
 - 🐻 Zustand for client state
 - 🧪 Vitest + Testing Library + Playwright
 - 📁 Feature-based architecture
-- 🎭 Mock API mode for development
 - 🔒 Auth flow included
 - ✨ ESLint + Prettier configured
 
@@ -54,7 +53,6 @@ src/
 │   ├── hooks/
 │   └── lib/
 ├── widgets/       # Complex reusable UI components
-├── mock/          # Mock API for development
 └── test/          # Test setup and utilities
 ```
 
@@ -80,21 +78,15 @@ bun run test       # Run all tests (unit + component)
 bun run test:e2e   # Run E2E tests with Playwright
 ```
 
-## Mock API
+## Backend Configuration
 
-Develop without a backend. Mock API uses localStorage and simulates network delays.
+Configure your backend API URL in `.env`:
 
-**Default credentials:**
-- Admin: `admin` / any password
-- User: `user` / any password
-
-**Toggle in `.env`:**
 ```env
-VITE_USE_MOCK_API=true   # Mock mode (default)
-VITE_USE_MOCK_API=false  # Real backend
+VITE_BE_URL=http://localhost:8080  # Your backend API URL
 ```
 
-**Reset data:** Clear localStorage in DevTools or run `localStorage.clear()`
+The application uses cookie-based authentication with automatic token refresh.
 
 ## Documentation
 

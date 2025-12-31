@@ -4,7 +4,6 @@
  * This file demonstrates how to create loaders that:
  * - Pre-fetch data before the route renders (no loading spinner on first visit)
  * - Use TanStack Query cache (instant on repeat visits)
- * - Work with the mock API pattern
  * 
  * Key Benefits:
  * - Data loads in parallel with route matching (faster than useEffect)

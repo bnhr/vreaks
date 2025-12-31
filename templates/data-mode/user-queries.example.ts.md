@@ -7,7 +7,6 @@
  * Key Benefits:
  * - Single source of truth for query configuration
  * - Works with loaders (pre-fetch) and useQuery (caching + refetch)
- * - Mock API logic stays in one place
  * - Type-safe query keys and data
  * 
  * Usage:
@@ -18,8 +17,6 @@
 
 import { queryOptions } from '@tanstack/react-query'
 import { apiClient } from '~/shared/api/client'
-import { USE_MOCK_API } from '~/shared/config/env'
-import { mockUsers } from '~/mock/data/users'
 import type { User, UserListResponse } from '../types/user.types'
 
 /**
@@ -33,9 +30,6 @@ export const usersQuery = () =>
 	queryOptions({
 		queryKey: ['users'],
 		queryFn: async (): Promise<UserListResponse> => {
-			if (USE_MOCK_API) {
-				return { data: mockUsers, total: mockUsers.length }
-			}
 			return apiClient.get('users').json<UserListResponse>()
 		},
 		staleTime: 5 * 60 * 1000, // 5 minutes
@@ -52,11 +46,6 @@ export const userQuery = (userId: string) =>
 	queryOptions({
 		queryKey: ['users', userId],
 		queryFn: async (): Promise<User> => {
-			if (USE_MOCK_API) {
-				const user = mockUsers.find((u) => u.id === userId)
-				if (!user) throw new Error('User not found')
-				return user
-			}
 			return apiClient.get(`users/${userId}`).json<User>()
 		},
 		staleTime: 5 * 60 * 1000, // 5 minutes

@@ -5,7 +5,6 @@
  * - Handle form submissions and mutations
  * - Invalidate TanStack Query cache automatically
  * - Redirect after successful mutation
- * - Work with the mock API pattern
  * 
  * Key Benefits:
  * - Declarative form handling with <Form> component
@@ -23,7 +22,6 @@ import type { QueryClient } from '@tanstack/react-query'
 import type { ActionFunctionArgs } from 'react-router'
 import { redirect } from 'react-router'
 import { apiClient } from '~/shared/api/client'
-import { USE_MOCK_API } from '~/shared/config/env'
 import type { UserPayload } from '../types/user.types'
 
 /**
@@ -62,12 +60,7 @@ export const createUserAction =
 		}
 
 		// Create user
-		if (USE_MOCK_API) {
-			// Mock implementation
-			console.log('Mock: Creating user', payload)
-		} else {
-			await apiClient.post('users', { json: payload })
-		}
+		await apiClient.post('users', { json: payload })
 
 		// Invalidate users list cache
 		// WITH await: Wait for refetch, then redirect (fresh data guaranteed)
@@ -114,11 +107,7 @@ export const updateUserAction =
 		}
 
 		// Update user
-		if (USE_MOCK_API) {
-			console.log('Mock: Updating user', userId, updates)
-		} else {
-			await apiClient.put(`users/${userId}`, { json: updates })
-		}
+		await apiClient.put(`users/${userId}`, { json: updates })
 
 		// Invalidate both users list and specific user cache
 		await queryClient.invalidateQueries({ queryKey: ['users'] })
@@ -155,11 +144,7 @@ export const deleteUserAction =
 		}
 
 		// Delete user
-		if (USE_MOCK_API) {
-			console.log('Mock: Deleting user', userId)
-		} else {
-			await apiClient.delete(`users/${userId}`)
-		}
+		await apiClient.delete(`users/${userId}`)
 
 		// Invalidate cache
 		await queryClient.invalidateQueries({ queryKey: ['users'] })

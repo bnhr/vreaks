@@ -87,7 +87,6 @@ function UsersPage() {
 
 ⚠️ **Current Patterns**:
 - Need to refactor all data fetching from components to loaders
-- Mock API pattern needs adjustment (check in loaders instead of hooks)
 - Zustand remains for UI state (good!)
 
 ## Hybrid Approach (Recommended)
@@ -229,9 +228,6 @@ export const userQuery = (userId: string) =>
   queryOptions({
     queryKey: ['users', userId],
     queryFn: async () => {
-      if (import.meta.env.VITE_USE_MOCK_API === 'true') {
-        return mockUsers.find(u => u.id === userId)
-      }
       return apiClient.get(`users/${userId}`).json<User>()
     },
   })
@@ -368,7 +364,7 @@ export async function authMiddleware({ request }: any, next: () => Promise<void>
 - `<Await>` - Deferred data loading
 - `<ScrollRestoration>` - Restore scroll position
 
-## Mock API Integration
+## API Integration
 
 ### Current Pattern (Query Hooks)
 ```tsx
@@ -377,9 +373,6 @@ export function useUsersQuery() {
   return useQuery({
     queryKey: ['users'],
     queryFn: async () => {
-      if (import.meta.env.VITE_USE_MOCK_API === 'true') {
-        return mockUsers
-      }
       return apiClient.get('users').json()
     }
   })
@@ -396,9 +389,6 @@ export const usersQuery = () =>
   queryOptions({
     queryKey: ['users'],
     queryFn: async () => {
-      if (import.meta.env.VITE_USE_MOCK_API === 'true') {
-        return mockUsers
-      }
       return apiClient.get('users').json()
     },
   })
