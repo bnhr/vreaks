@@ -4,6 +4,7 @@ export { ProtectedRoute } from './components/protected-route'
 
 // Hooks/API
 export { useLogin } from './api/use-login'
+export { useLogout } from './api/use-logout'
 export { useMeQuery } from './api/use-me-query'
 export { useAuth } from './hooks/use-auth'
 

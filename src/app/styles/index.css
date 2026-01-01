@@ -1,9 +1,77 @@
 @import 'tailwindcss';
 
+/* Configure Tailwind breakpoints */
+@theme {
+	--breakpoint-sm: 640px;
+	--breakpoint-md: 768px;
+	--breakpoint-lg: 1024px;
+	--breakpoint-xl: 1280px;
+}
+
 @layer base {
 	html,
 	body,
 	#root {
 		height: 100%;
 	}
+}
+
+/* Global black and white theme */
+body {
+	background-color: #ffffff;
+	color: #000000;
+}
+
+/* Ensure all inputs have consistent black borders and focus rings */
+input[type='text'],
+input[type='email'],
+input[type='password'],
+input[type='search'],
+input[type='tel'],
+input[type='url'],
+input[type='number'],
+textarea,
+select {
+	border: 2px solid #000000;
+	color: #000000;
+}
+
+input[type='text']:focus,
+input[type='email']:focus,
+input[type='password']:focus,
+input[type='search']:focus,
+input[type='tel']:focus,
+input[type='url']:focus,
+input[type='number']:focus,
+textarea:focus,
+select:focus {
+	outline: none;
+	box-shadow: 0 0 0 2px #000000;
+}
+
+input[type='text']:disabled,
+input[type='email']:disabled,
+input[type='password']:disabled,
+input[type='search']:disabled,
+input[type='tel']:disabled,
+input[type='url']:disabled,
+input[type='number']:disabled,
+textarea:disabled,
+select:disabled {
+	opacity: 0.4;
+}
+
+/* Ensure buttons follow opacity states */
+button:hover:not(:disabled) {
+	opacity: 0.8;
+}
+
+button:disabled {
+	opacity: 0.4;
+	cursor: not-allowed;
+}
+
+/* Ensure links follow hover state */
+a:hover {
+	opacity: 0.8;
 }
