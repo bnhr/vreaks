@@ -54,7 +54,7 @@ describe('LoginForm', () => {
 		renderWithProviders(<LoginForm />, {
 			routes: [{ path: '/admin', element: <div>Admin Page</div> }],
 		})
-		expect(screen.getByText('login today')).toBeInTheDocument()
+		expect(screen.getByRole('heading', { name: 'Login' })).toBeInTheDocument()
 		expect(screen.getByRole('button', { name: /login/i })).toBeInTheDocument()
 	})
 

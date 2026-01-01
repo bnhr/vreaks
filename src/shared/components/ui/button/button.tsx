@@ -1,17 +1,11 @@
-import { ButtonHTMLAttributes } from 'react'
+import type { ButtonHTMLAttributes } from 'react'
 
 type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement>
 
-const Button = ({
-	ref: _ref,
-	...props
-}: ButtonProps & { ref?: React.RefObject<HTMLButtonElement | null> }) => {
-	const { children, type = 'button', onClick, ...rest } = props
+const Button = ({ children, type = 'button', ...rest }: ButtonProps) => {
 	return (
 		<button
-			ref={_ref}
 			type={type}
-			onClick={onClick}
 			{...rest}
 		>
 			{children}
