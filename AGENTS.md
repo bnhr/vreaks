@@ -12,6 +12,18 @@
 
 **Naming:** kebab-case for all files/folders (`user-profile.tsx`, not `UserProfile.tsx`)
 
+## Code Quality Tools
+
+This project uses:
+- **Husky** - Git hooks for pre-commit checks
+- **lint-staged** - Run linters on staged files only
+- **Prettier** - Code formatting
+- **ESLint** - Code linting
+
+Pre-commit hook automatically runs:
+1. ESLint with `--fix` on staged `.ts`, `.tsx` files in `src/`
+2. Prettier on staged `.ts`, `.tsx`, `.json`, `.css`, `.scss`, `.md`, `.mdx`, `.js` files in `src/`
+
 ## State Management (Critical)
 
 1. **TanStack Query** - ALL API data (users, posts, auth from `/me`)
